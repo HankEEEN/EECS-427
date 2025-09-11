@@ -1,0 +1,47 @@
+Path names for cells:
+1. INV
+/CAD1_LIB/INV
+
+2. NAND2
+/CAD1_LIB/NAND2
+
+3. MUX21
+/CAD1_LIB/MUX21
+
+Maximum risetime
+0.851887 ns 
+
+Maximum falltime
+0.45748 ns 
+
+Critical path analysis
+SEL --> I5 --> I2 --> I4 --> OUT
+
+Critical path rise delay
+0.5 ns
+
+Critical path fall delay
+0.32534 ns
+
+The critical path delay can be measured when SEL signal transitions from HIGH(1)
+to LOW(0). 
+This is identified as the critical path of the MUX21 because this is the path 
+where the signal has to go through the largest number of logic gates to affect 
+the output. The propagation delay at this time would be slowest as it has to 
+suffer from the delay of all the logic gates it goes through.
+
+
+Comment & Summary
+The critical points of this layout design for me is to confirm the positions of
+the nets at the early stage of NAND and INV layout design, which will
+be connected during the component integration by vias to ensure their 
+center point coordinates abide by the metal tracks position rules.
+
+The MUX layout design employs the horizotal layout and the INV is placed at the 
+second position from the left to reduce the area needed for connection using 
+metal layers. This layout also only involves one path that crosses layer 3, minimizing
+the cross-layer transmission.
+
+
+
+

@@ -1,0 +1,16 @@
+#
+# Edit Lock-Stake file. CAUTION: Please do not change.
+#
+# Information about current Edit Lock Owner.
+#
+LockStakeVersion               1.1
+LoginName                      zihanfu
+HostName                       caen-vnc-mi04.engin.umich.edu
+ProcessIdentifier              1100214
+ProcessCreationTime_UTC        1757554723
+ProcessCreationTime_Readable   Wed Sep 10 21:38:43 2025 EDT
+AppIdentifier                  OA File System Design Manager
+OSType                         unix
+ReasonForPlacingEditLock       OpenAccess edit lock
+FilePathUsedToEditLock         /afs/umich.edu/class/eecs427/f25/zihanfu/CAD1/CAD1_LIB/NAND2/schematic/sch.oa.cdslck
+TimeEditLocked                 Thu Sep 11 02:19:45 2025 EDT
