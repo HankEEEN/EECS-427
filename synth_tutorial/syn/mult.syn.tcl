@@ -1,0 +1,93 @@
+# From EECS627 Lab 1
+# 8-bit multiplier
+# TCL script for Design Compiler
+
+# Load common variables, artisan standard cells
+source -verbose "common.tcl"
+#No Assign Statement Fixes
+set hdlin_latch_always_async_set_reset true
+set hdlin_auto_save_templates true
+set hdlout_internal_busses true
+set verilogout_single_bit false
+set verilogout_no_tri true
+set bus_inference_style {%s[%d]}
+set bus_naming_style {%s[%d]}
+
+# Set top level name
+set top_level "mult"
+
+# Read verilog files
+read_verilog "../verilog/mult.v"
+list_designs
+current_design $top_level
+
+# Read timing constrints
+# Set clock names, ports
+source -verbose "timing.tcl"
+set_ideal_network resetn
+set_fix_multiple_port_nets -all
+
+# Link the design
+link
+
+# Set maximum fanout of gates
+set_max_fanout 8 $top_level 
+
+# Configure the clock network
+set_fix_hold [all_clocks] 
+set_dont_touch_network $clk_port 
+
+# Set delays: Input, Output
+# set_driving_cell -lib_cell INVX1TR [all_inputs] -library typical
+set_input_delay $typical_input_delay [all_inputs] -clock $clk_name 
+remove_input_delay -clock $clk_name [find port $clk_port]
+set_output_delay $typical_output_delay [all_outputs] -clock $clk_name 
+
+# Set loading of outputs 
+set_load $typical_wire_load [all_outputs] 
+
+# Verify the design
+check_design
+
+# Uniquify repeated modules
+uniquify
+
+# Avoid feedthrough
+set_fix_multiple_port_nets -feedthroughs -buffer_constants
+
+# Synthesize the design
+compile -map_effort medium
+
+# Rename modules, signals according to the naming rules
+# Used for tool exchange
+source -verbose "namingrules.tcl"
+
+# Generate structural verilog netlist
+write -hierarchy -format verilog -output "../verilog/${top_level}.nl.v"
+
+# Generate Standard Delay Format (SDF) file
+write_sdf -context verilog "../sdf/${top_level}.temp.sdf"
+
+# Correct the SDF with the artisan provided postprocessor
+#exec ${ARTISAN}/synopsys/dc_postprocessor.pl -s ../sdf/${top_level}.temp.sdf -o ../sdf/${top_level}.dc.sdf
+
+# Write SDC
+write_sdc "../innovus/${top_level}.sdc"
+
+# Generate report file
+set maxpaths 20
+set rpt_file "./${top_level}.dc.rpt"
+
+
+check_design > $rpt_file
+report_area  >> ${rpt_file}
+report_power -hier -analysis_effort medium >> ${rpt_file}
+report_design >> ${rpt_file}
+report_cell >> ${rpt_file}
+report_port -verbose >> ${rpt_file}
+report_compile_options >> ${rpt_file}
+report_constraint -all_violators -verbose >> ${rpt_file}
+report_timing -path full -delay max -max_paths $maxpaths -nworst 100 >> ${rpt_file}
+
+#Exit dc_shell
+quit

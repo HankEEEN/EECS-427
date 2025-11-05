@@ -1,0 +1,41 @@
+################################################
+#  EECS 427 F15                                #
+#  Created by Jaeyoung Kim                     #
+#  Encounter Input configuration file          #
+################################################
+
+
+# Specify Verilog source files
+# Include the std cells verilog modules
+set init_verilog {../verilog/mult.nl.v /afs/umich.edu/class/eecs427/tsmc65/stdcells/tcbn65gplus_200a/TSMCHOME/digital/Front_End/verilog/tcbn65gplus_200a/tcbn65gplus_pwr_module.v} 
+#modified 01/30/25
+
+# Specify the name of your toplevel module
+set init_top_cell {mult}
+
+
+set init_design_netlisttype {Verilog}
+set init_design_settop {1}
+
+
+# Insert I/O file (for use with I/O pads, not block I/O only
+set init_io_file {}
+
+# Insert the standard cell LEF file and other block LEF files
+set init_lef_file {/afs/umich.edu/class/eecs427/tsmc65/stdcells/PRTF_EDI_65nm_001_Cad_V24a/PR_tech/Cadence/LefHeader/VHV/PRTF_EDI_N65_9M_6X1Z1U_RDL.24a.tlef /afs/umich.edu/class/eecs427/tsmc65/stdcells/tcbn65gplus_200a/TSMCHOME/digital/Back_End/lef/tcbn65gplus_200a/lef/tcbn65gplus_9lmT2.lef}
+
+#021125 use VHV
+
+# /afs/umich.edu/class/eecs427/tsmc65/ARM/lef/tsmc65_rvt_sc_adv10_macro.lef
+
+set init_mmmc_file viewDefinition.tcl
+
+set init_pwr_net {VDD}
+set init_gnd_net {VSS}
+
+set init_assign_buffer {0}
+
+#Set library unit
+setLibraryUnit -time 1ns
+setLibraryUnit -cap 1pF
+
