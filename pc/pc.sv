@@ -21,7 +21,7 @@ module pc #(
     // Predicted Targets Inputs
     input   logic   [OFFSET_WIDTH-1:0]  i_disp,
     input   logic   [ADDR_WIDTH-1:0]    i_rf_addr,
-    input   logic                       i_jump,
+    input   logic                       i_jcond,
     input   logic                       i_jal,
 
     // Misprediction Squash/Correction
@@ -54,9 +54,9 @@ assign r_pc_taken = r_pc + 1'b1 + {{OFFSET_WIDTH{i_disp[OFFSET_WIDTH-1]}}, i_dis
 
 always_comb begin
     r_pc_predict = r_pc_normal; // Default to normal pc increment
-    if (i_is_branch)
-        r_pc_predict = i_predict_taken ? r_pc_taken : r_pc_normal;
-    if (i_jump | i_jal)
+    if (i_is_branch | i_jcond)
+        r_pc_predict = i_predict_taken ? (i_is_branch ? r_pc_taken : i_rf_addr) : r_pc_normal; 
+    if (i_jal)
         r_pc_predict = i_rf_addr;
 end
 
@@ -90,8 +90,8 @@ always_ff @(posedge i_sys_clk or negedge i_sys_rstn) begin
         r_writeback_enable <= 1'b0;
         r_writeback_data <= 'd0;
     end else begin
-        r_writeback_enable <= (!i_jump & i_jal);
-        if (i_jal & !i_jump)
+        r_writeback_enable <= (!i_jcond & i_jal);
+        if (i_jal & !i_jcond)
             r_writeback_data <= r_pc_next + 1'b1;
     end
 end
