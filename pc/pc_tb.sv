@@ -1,5 +1,9 @@
 `timescale 1ns/1ps
-`define CLK_PERIOD 20
+
+`ifndef CLK_PERIOD
+  `define CLK_PERIOD `CLOCK_PERIOD
+`endif
+
 
 module pc_tb;
 

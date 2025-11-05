@@ -36,7 +36,7 @@
 ######################################################
 
 # this is a global clock period variable used in the tcl script and referenced in testbenches
-export CLOCK_PERIOD = 30.0
+export CLOCK_PERIOD = 1.0
 # LAB2 TODO: Finish your 64-bit testbench, then synthesize the design.
 #            Change the clock period so that slack isn't violated
 
@@ -66,7 +66,7 @@ SHELL := $(SHELL) -o pipefail
 # You should only need to modify this section, and only the following variables:
 TESTBENCH   = pc_tb.sv
 SOURCES     = pc.sv
-SYNTH_FILES = pc.vg
+SYNTH_FILES = synth/pc.vg
 
 # the .vg rule is automatically generated below when the name of the file matches its top level module
 
