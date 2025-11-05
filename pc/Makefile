@@ -66,7 +66,7 @@ SHELL := $(SHELL) -o pipefail
 # You should only need to modify this section, and only the following variables:
 TESTBENCH   = pc_tb.sv
 SOURCES     = pc.sv
-SYNTH_FILES = rtl_recap/pc.vg
+SYNTH_FILES = pc.vg
 
 # the .vg rule is automatically generated below when the name of the file matches its top level module
 

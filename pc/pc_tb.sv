@@ -23,7 +23,7 @@ logic                       r_predict_taken;
 
 logic   [DISP_WIDTH-1:0]    r_disp;
 logic   [ADDR_WIDTH-1:0]    r_rf_addr;
-logic                       r_jump;
+logic                       r_jcond;
 logic                       r_jal;
 
 logic                       r_mispredict;
@@ -51,7 +51,7 @@ pc #(
     .i_predict_taken        (r_predict_taken),
     .i_disp                 (r_disp),
     .i_rf_addr              (r_rf_addr),
-    .i_jump                 (r_jump),
+    .i_jcond                (r_jcond),
     .i_jal                  (r_jal),
     .i_mispredict           (r_mispredict),
     .i_correct_pc           (r_correct_pc),
@@ -99,7 +99,7 @@ initial begin
     r_predict_taken = 1'b0;
     r_disp = 'd0;
     r_rf_addr = 'd0;
-    r_jump = 1'b0;
+    r_jcond = 1'b0;
     r_jal = 1'b0;
     r_mispredict = 1'b0;
     r_correct_pc = 'd0;
@@ -159,16 +159,24 @@ initial begin
     r_mispredict = 1'b0;
 
 
-    // TEST 2 - Jcondf
+    // TEST 2 - Jcond
     // PC should now be 240
-    r_jump = 1'b1;
+    r_jcond = 1'b1;
     r_rf_addr = 'h00f0;
+    r_predict_taken = 1'b1;
     @(posedge r_sys_clk);
+    r_jcond = 1'b0;
+    r_predict_taken = 1'b0;
+    repeat(3) @(posedge r_sys_clk);
+    r_mispredict = 1'b1;
+    r_correct_pc = 'd50;
+    @(posedge r_sys_clk);
+    r_mispredict = 1'b0;
 
     
     // TEST 3 - JAL - rf writeback activated
     // PC should now be 16
-    r_jump = 1'b0;
+    r_jcond = 1'b0;
     r_jal = 1'b1;
     r_rf_addr = 'h0010;
     @(posedge r_sys_clk);
