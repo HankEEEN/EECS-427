@@ -54,9 +54,11 @@ assign r_pc_taken = r_pc + 1'b1 + {{OFFSET_WIDTH{i_disp[OFFSET_WIDTH-1]}}, i_dis
 
 always_comb begin
     r_pc_predict = r_pc_normal; // Default to normal pc increment
-    if (i_is_branch | i_jcond)
-        r_pc_predict = i_predict_taken ? (i_is_branch ? r_pc_taken : i_rf_addr) : r_pc_normal; 
-    if (i_jal)
+    if (i_is_branch | i_jcond) begin
+        if (i_predict_taken)
+        r_pc_predict = i_is_branch ? r_pc_taken : i_rf_addr; 
+    end 
+    else if (i_jal)
         r_pc_predict = i_rf_addr;
 end
 
