@@ -26,7 +26,7 @@ logic                       r_is_branch;
 logic                       r_predict_taken;
 
 logic   [DISP_WIDTH-1:0]    r_disp;
-logic   [ADDR_WIDTH-1:0]    r_rf_addr;
+logic   [ADDR_WIDTH-1:0]    r_rf_addr_n;
 logic                       r_jcond;
 logic                       r_jal;
 
@@ -54,7 +54,7 @@ pc #(
     .i_is_branch            (r_is_branch),
     .i_predict_taken        (r_predict_taken),
     .i_disp                 (r_disp),
-    .i_rf_addr              (r_rf_addr),
+    .i_rf_addr_n            (r_rf_addr_n),
     .i_jcond                (r_jcond),
     .i_jal                  (r_jal),
     .i_mispredict           (r_mispredict),
@@ -102,7 +102,7 @@ initial begin
     r_is_branch = 1'b0;
     r_predict_taken = 1'b0;
     r_disp = 'd0;
-    r_rf_addr = 'd0;
+    r_rf_addr_n = '1;
     r_jcond = 1'b0;
     r_jal = 1'b0;
     r_mispredict = 1'b0;
@@ -166,7 +166,7 @@ initial begin
     // TEST 2 - Jcond
     // PC should now be 240
     r_jcond = 1'b1;
-    r_rf_addr = 'h00f0;
+    r_rf_addr_n = 'hff0f;
     r_predict_taken = 1'b1;
     @(posedge r_sys_clk);
     r_jcond = 1'b0;
@@ -182,7 +182,7 @@ initial begin
     // PC should now be 16
     r_jcond = 1'b0;
     r_jal = 1'b1;
-    r_rf_addr = 'h0010;
+    r_rf_addr_n = 'hffef;
     @(posedge r_sys_clk);
 
     
@@ -210,10 +210,12 @@ initial begin
     r_scan_en = 1'b1;
     r_scan_in = 1'b0;
     r_pattern_out = 16'h0000;
+    @(posedge r_sys_clk);
     for (int i = ADDR_WIDTH - 1; i >= 0; i--) begin
         r_pattern_out[i] = w_scan_out;
         @(posedge r_sys_clk);
     end
+    repeat(2) @(posedge r_sys_clk);
     r_scan_en = 1'b0;
     $display("\n--- Shifting out pattern 0x%h ---", r_pattern_out);
 
