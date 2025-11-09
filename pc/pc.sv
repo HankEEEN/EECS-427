@@ -20,7 +20,7 @@ module pc #(
 
     // Predicted Targets Inputs
     input   logic   [OFFSET_WIDTH-1:0]  i_disp,
-    input   logic   [ADDR_WIDTH-1:0]    i_rf_addr,
+    input   logic   [ADDR_WIDTH-1:0]    i_rf_addr_n,
     input   logic                       i_jcond,
     input   logic                       i_jal,
 
@@ -48,18 +48,20 @@ logic                       r_writeback_enable;
 ////////////////////    Next-PC Candidates
 ////////////////////////////////////////////////////////////////////////////////
 logic   [ADDR_WIDTH-1:0]    r_pc_normal, r_pc_taken, r_pc_predict;
+logic   [ADDR_WIDTH-1:0]    r_rf_addr;
 
 assign r_pc_normal = r_pc + 1'b1;
 assign r_pc_taken = r_pc + 1'b1 + {{OFFSET_WIDTH{i_disp[OFFSET_WIDTH-1]}}, i_disp};
+assign r_rf_addr = ~i_rf_addr_n;
 
 always_comb begin
     r_pc_predict = r_pc_normal; // Default to normal pc increment
     if (i_is_branch | i_jcond) begin
         if (i_predict_taken)
-        r_pc_predict = i_is_branch ? r_pc_taken : i_rf_addr; 
+        r_pc_predict = i_is_branch ? r_pc_taken : r_rf_addr; 
     end 
     else if (i_jal)
-        r_pc_predict = i_rf_addr;
+        r_pc_predict = r_rf_addr;
 end
 
 
@@ -67,6 +69,8 @@ end
 ////////////////////    Next PC Logic
 ////////////////////////////////////////////////////////////////////////////////
 logic   [ADDR_WIDTH-1:0]    r_pc_next;
+logic                       r_scan_out;
+
 assign r_pc_next =  (i_mispredict)  ?   i_correct_pc    :
                     (i_stall)       ?   r_pc            :
                     r_pc_predict;
@@ -80,8 +84,15 @@ always_ff @(posedge i_sys_clk or negedge i_sys_rstn) begin
         r_pc <= r_pc_next;
 end
 
+always_ff @(posedge i_sys_clk or negedge i_sys_rstn) begin
+    if (!i_sys_rstn)
+        r_scan_out <= 1'b0;
+    else 
+        r_scan_out <= r_pc[ADDR_WIDTH-1];
+end
+
 assign o_pc2imem = r_pc;
-assign o_scan_out = r_pc[ADDR_WIDTH-1];
+assign o_scan_out = r_scan_out;
 
 
 ////////////////////////////////////////////////////////////////////////////////
