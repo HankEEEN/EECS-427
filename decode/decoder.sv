@@ -1,6 +1,6 @@
 module decoder(
     input logic [15:0] inst,
-
+ 
     output logic [3:0] opcode, 
     output logic [3:0] r_dest, 
     output logic [3:0] op_ext, 

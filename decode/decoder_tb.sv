@@ -3,7 +3,7 @@
 `ifndef CLK_PERIOD
   `define CLK_PERIOD `CLOCK_PERIOD
 `endif
-
+ 
 
 module decoder_tb; 
     logic [15:0] inst; 
