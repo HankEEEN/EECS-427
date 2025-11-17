@@ -1,0 +1,9 @@
+decoder.sv:83 NO "a case statement with replicated items" (83)
+decoder.sv:90 YES
+decoder.sv:127 YES
+decoder.sv:197 YES
+==================================================
+X P R O P   S T A T I S T I C S
+instrumentable assignments:    44
+instrumented assignments:      18
+instrumentation success rate:  40%

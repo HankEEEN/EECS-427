@@ -1,0 +1,163 @@
+0
+48
++define+CLOCK_PERIOD=1.0
++itf+/usr/caen/vcs-2025.06-1/linux64/lib/vcsdp_lite.tab
++vc
++vcsd1
++vpi
++warn=noDEBUG_DEP
++warn=noENUMASSIGN
++warn=noLCA_FEATURES_ENABLED
++warn=noTFIPC
+-Mamsrun=
+-Masflags=
+-Mcc=gcc
+-Mcfl= -pipe -fPIC -O -I/usr/caen/vcs-2025.06-1/include
+-Mcplusplus=g++
+-Mcrt0=
+-Mcrtn=
+-Mcsrc=
+-Mdir=build/csrc
+-Mexternalobj=
+-Mldflags= -rdynamic
+-Mobjects= /usr/caen/vcs-2025.06-1/linux64/lib/libvirsim.so /usr/caen/vcs-2025.06-1/linux64/lib/liberrorinf.so /usr/caen/vcs-2025.06-1/linux64/lib/libsnpsmalloc.so /usr/caen/vcs-2025.06-1/linux64/lib/libvfs.so
+-Mout=build/simv
+-Msaverestoreobj=/usr/caen/vcs-2025.06-1/linux64/lib/vcs_save_restore_new.o
+-Msyslibs=/usr/caen/verdi-2025.06-1/share/PLI/VCS/LINUX64/pli.a -ldl
+-Mupdate
+-Mvcsaceobjs=
+-Mxcflags= -pipe -fPIC -I/usr/caen/vcs-2025.06-1/include
+-Mxllcflags=
+-P
+-Xhdlxmropt
+-Xufe=2steps
+-debug_access+all+reverse
+-fsdb
+-full64
+-gen_obj
+-kdb
+-lca
+-line
+-nc
+-o build/simv
+-picarchive
+-sverilog
+-xprop=tmerge
+/usr/caen/vcs-2025.06-1/linux64/bin/vcs1fe
+build/simv
+/usr/caen/verdi-2025.06-1/share/PLI/VCS/LINUX64/verdi.tab
+decoder_tb.sv
+decoder.sv
+97
+which_declare=declare -f
+__LMOD_REF_COUNT_PATH=/usr/caen/vcs-2025.06-1/bin:1;/usr/caen/verdi-2025.06-1/bin:1;/usr/local/bin:1;/usr/local/sbin:1;/usr/bin:1;/usr/sbin:1;/usr/um/bin:1;/usr/caen/bin:1
+__LMOD_REF_COUNT_MODULEPATH=/etc/scl/modulefiles:1;/etc/modulefiles:1;/usr/share/modulefiles:1;/usr/caen/misc/modules:1;/usr/caen/misc/class/modules:1;/usr/share/modulefiles/Linux:1;/usr/share/modulefiles/Core:1;/usr/share/lmod/lmod/modulefiles/Core:1
+__LMOD_REF_COUNT_LM_LICENSE_FILE=license.dat:1;/usr/caen/FLEXlm/data/license.dat.synopsys:1
+__GL_SHADER_DISK_CACHE=0
+_ModuleTable_Sz_=4
+_ModuleTable004_=bG1vZC9tb2R1bGVmaWxlcy9Db3JlIiwKfQo=
+_ModuleTable003_=b2R1bGVmaWxlcyIsICIvdXNyL2NhZW4vbWlzYy9tb2R1bGVzIgosICIvdXNyL2NhZW4vbWlzYy9jbGFzcy9tb2R1bGVzIiwgIi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMvTGludXgiLCAiL3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9Db3JlIiwgIi91c3Ivc2hhcmUvbG1vZC9sbW9kL21vZHVsZWZpbGVzL0NvcmUiLAp9LApzeXN0ZW1CYXNlTVBBVEggPSAiL2V0Yy9zY2wvbW9kdWxlZmlsZXM6L2V0Yy9tb2R1bGVmaWxlczovdXNyL3NoYXJlL21vZHVsZWZpbGVzOi91c3IvY2Flbi9taXNjL21vZHVsZXM6L3Vzci9jYWVuL21pc2MvY2xhc3MvbW9kdWxlczovdXNyL3NoYXJlL21vZHVsZWZpbGVzL0xpbnV4Oi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMvQ29yZTovdXNyL3NoYXJlL2xtb2Qv
+_ModuleTable002_=ViA9ICJeMDAwMDIwMjUuMDAwMDAwMDA2Lip6ZmluYWwtLjAwMDAwMDAwMS4qemZpbmFsIiwKfSwKdmVyZGkgPSB7CmZuID0gIi91c3IvY2Flbi9taXNjL21vZHVsZXMvdmVyZGkvMjAyNS4wNi0xLmx1YSIsCmZ1bGxOYW1lID0gInZlcmRpLzIwMjUuMDYtMSIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnJlZl9jb3VudCA9IDEsCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAidmVyZGkvMjAyNS4wNi0xIiwKd1YgPSAiXjAwMDAyMDI1LjAwMDAwMDAwNi4qemZpbmFsLS4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCn0sCm1wYXRoQSA9IHsKIi9ldGMvc2NsL21vZHVsZWZpbGVzIiwgIi9ldGMvbW9kdWxlZmlsZXMiLCAiL3Vzci9zaGFyZS9t
+_ModuleTable001_=X01vZHVsZVRhYmxlXyA9IHsKTVR2ZXJzaW9uID0gMywKY19yZWJ1aWxkVGltZSA9IDcyMDAuMCwKY19zaG9ydFRpbWUgPSAwLjAxMDcyMjE2MDMzOTM1NSwKZGVwdGhUID0ge30sCmZhbWlseSA9IHt9LAptVCA9IHsKdmNzID0gewpkZXBUID0gewpkZXBBID0gewp7CnNuID0gInZlcmRpIiwKdmVyc2lvbiA9IHsKa2luZCA9ICJmaXhlZCIsCnZhbHVlID0gIjIwMjUuMDYtMSIsCn0sCn0sCn0sCn0sCmZuID0gIi91c3IvY2Flbi9taXNjL21vZHVsZXMvdmNzLzIwMjUuMDYtMS5sdWEiLApmdWxsTmFtZSA9ICJ2Y3MvMjAyNS4wNi0xIiwKbG9hZE9yZGVyID0gMiwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJ2Y3MiLAp3
+_LMFILES_=/usr/caen/misc/modules/verdi/2025.06-1.lua:/usr/caen/misc/modules/vcs/2025.06-1.lua
+XMODIFIERS=@im=ibus
+XDG_SESSION_TYPE=x11
+XDG_SESSION_DESKTOP=gnome
+XDG_SESSION_CLASS=user
+XDG_RUNTIME_DIR=/run/user/114323793
+XDG_MENU_PREFIX=gnome-
+XDG_DATA_DIRS=/home/danjchen/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/share:/usr/local/share:/usr/caen/misc/menus
+XDG_CURRENT_DESKTOP=GNOME
+XAUTHORITY=/run/gdm/auth-for-danjchen-RZSTF3/database
+VSCODE_GIT_IPC_HANDLE=/run/user/114323793/vscode-git-86552227ba.sock
+VSCODE_GIT_ASKPASS_NODE=/opt/caen/um/vscode-1.92.2/code/code
+VSCODE_GIT_ASKPASS_MAIN=/opt/caen/um/vscode-1.92.2/code/resources/app/extensions/git/dist/askpass-main.js
+VSCODE_GIT_ASKPASS_EXTRA_ARGS=
+VMR_MODE_FLAG=64
+VERDI_HOME=/usr/caen/verdi-2025.06-1
+VCS_TARGET_ARCH=linux64
+VCS_PYTHON3=/usr/caen/vcs-2025.06-1/linux64/bin/Python3/bin/python3
+VCS_PATHMAP_PRELOAD_DONE=1
+VCS_MX_HOME_INTERNAL=1
+VCS_MODE_FLAG=64
+VCS_LCAMSG_PRINT_OFF=1
+VCS_INTERNAL_CONVERTEDLIBS=
+VCS_HOME=/usr/caen/vcs-2025.06-1
+VCS_EXEC_DONE=1
+VCS_DEPTH=0
+VCS_ARG_ADDED_FOR_TMP=1
+VCS_ARCH=linux64
+USERNAME=danjchen
+UNAME=/bin/uname
+TOOL_HOME=/usr/caen/vcs-2025.06-1/linux64
+TERM_PROGRAM_VERSION=1.92.2
+TERM_PROGRAM=vscode
+SW_VCS=2022.06
+SNPS_VERDI_INTERNAL_LP_XML_NEW_FLOW=1
+SNPS_VCS_VHDL_WRAPPER_KDB=1
+SNPS_VCS_PYTHON3=/usr/caen/vcs-2025.06-1/linux64/bin/Python3/bin/python3
+SNPS_VCS_CLANG_PATH=/usr/caen/vcs-2025.06-1/linux64/clang
+SNPS_INTERNAL_VCS_LINUX_OS=linux
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/3078060,unix/unix:/tmp/.ICE-unix/3078060
+SCRNAME=vcs
+SCRIPT_NAME=vcs
+QT_IM_MODULE=ibus
+OVA_UUM=0
+ORIGINAL_XDG_CURRENT_DESKTOP=GNOME
+NO_AT_BRIDGE=1
+MODULESHOME=/usr/share/lmod/lmod
+MODULEPATH_ROOT=/usr/share/modulefiles
+MODULEPATH=/etc/scl/modulefiles:/etc/modulefiles:/usr/share/modulefiles:/usr/caen/misc/modules:/usr/caen/misc/class/modules:/usr/share/modulefiles/Linux:/usr/share/modulefiles/Core:/usr/share/lmod/lmod/modulefiles/Core
+MFLAGS=
+MAKE_TERMOUT=/dev/pts/1
+MAKE_TERMERR=/dev/pts/1
+MAKELEVEL=1
+MAKEFLAGS=
+LOADEDMODULES=verdi/2025.06-1:vcs/2025.06-1
+LMOD_sys=Linux
+LMOD_VERSION=8.7.65
+LMOD_SETTARG_FULL_SUPPORT=no
+LMOD_ROOT=/usr/share/lmod
+LMOD_PKG=/usr/share/lmod/lmod
+LMOD_DIR=/usr/share/lmod/lmod/libexec
+LMOD_CMD=/usr/share/lmod/lmod/libexec/lmod
+LMOD_CACHED_LOADS=yes
+LESSOPEN=||/usr/bin/lesspipe.sh %s
+LC_ALL=C
+KRB5CCNAME=KEYRING:persistent:114323793
+HISTCONTROL=ignoredups
+GJS_DEBUG_TOPICS=JS ERROR;JS LOG
+GJS_DEBUG_OUTPUT=stderr
+GIT_ASKPASS=/opt/caen/um/vscode-1.92.2/code/resources/app/extensions/git/dist/askpass.sh
+GIO_LAUNCHED_DESKTOP_FILE_PID=3079584
+GIO_LAUNCHED_DESKTOP_FILE=/usr/caen/misc/menus/applications/DEVELOPMENT-VisualStudioCode1.92.2.desktop
+GDM_LANG=en_US.UTF-8
+GDMSESSION=gnome
+GDK_BACKEND=x11
+FPATH=/usr/share/lmod/lmod/init/ksh_funcs
+DESKTOP_SESSION=gnome
+DEBUGINFOD_IMA_CERT_PATH=/etc/keys/ima:
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-tVr02TrSTE,guid=8e7e860e6feae0f901b9dd506917a7bb
+COLORTERM=truecolor
+CLOCK_PERIOD=1.0
+CHROME_DESKTOP=code-url-handler.desktop
+BASH_FUNC_which%%=() {  ( alias;_ eval ${which_declare} ) | /usr/bin/which --tty-only --read-alias --read-functions --show-tilde --show-dot $@_}
+BASH_FUNC_scl%%=() {  if [ "$1" = "load" -o "$1" = "unload" ]; then_ eval "module $@";_ else_ /usr/bin/scl "$@";_ fi_}
+BASH_FUNC_module%%=() {  if [ -z "${LMOD_SH_DBG_ON+x}" ]; then_ case "$-" in _ *v*x*)_ __lmod_sh_dbg='vx'_ ;;_ *v*)_ __lmod_sh_dbg='v'_ ;;_ *x*)_ __lmod_sh_dbg='x'_ ;;_ esac;_ fi;_ if [ -n "${__lmod_sh_dbg:-}" ]; then_ set +$__lmod_sh_dbg;_ echo "Shell debugging temporarily silenced: export LMOD_SH_DBG_ON=1 for Lmod's output" 1>&2;_ fi;_ eval "$($LMOD_CMD shell "$@")" && eval "$(${LMOD_SETTARG_CMD:-:} -s sh)";_ __lmod_my_status=$?;_ if [ -n "${__lmod_sh_dbg:-}" ]; then_ echo "Shell debugging restarted" 1>&2;_ set -$__lmod_sh_dbg;_ fi;_ unset __lmod_sh_dbg;_ return $__lmod_my_status_}
+BASH_FUNC_ml%%=() {  eval "$($LMOD_DIR/ml_cmd "$@")"_}
+BASH_ENV=/usr/share/lmod/lmod/init/bash
+0
+0
+5
+1752732158 /usr/caen/vcs-2025.06-1/linux64/packages/snps_msv_nettype_pkg/AN.DB
+1763158567 decoder.sv
+1763158560 decoder_tb.sv
+1752984263 /usr/caen/verdi-2025.06-1/share/PLI/VCS/LINUX64/verdi.tab
+1752721624 /usr/caen/vcs-2025.06-1/linux64/lib/vcsdp_lite.tab
+4
+1752724038 /usr/caen/vcs-2025.06-1/linux64/lib/libvirsim.so
+1752722876 /usr/caen/vcs-2025.06-1/linux64/lib/liberrorinf.so
+1752722871 /usr/caen/vcs-2025.06-1/linux64/lib/libsnpsmalloc.so
+1752722863 /usr/caen/vcs-2025.06-1/linux64/lib/libvfs.so
+1763158577 build/simv.daidir
+-1 partitionlib

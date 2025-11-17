@@ -1,0 +1,7 @@
+Command exited with non-zero status 255
+{"vcs1":{"timestamp_begin":1763157714.552630044, "rt":0.21, "ut":0.03, "st":0.04}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1763157713.612144775}
+{"VCS_COMP_START_TIME": 1763157713.612144775}
+{"VCS_COMP_END_TIME": 1763157714.910308106}
+{"VCS_USER_OPTIONS": "-sverilog -xprop=tmerge +vc -Mupdate -Mdir=build/csrc -line -full64 -kdb -lca -nc -debug_access+all+reverse +warn=noTFIPC +warn=noDEBUG_DEP +warn=noENUMASSIGN +warn=noLCA_FEATURES_ENABLED +define+CLOCK_PERIOD=1.0 decoder_tb.sv decoder.sv -o build/simv"}
+{"kdb": {"elabcom_name":"<Kdbresolver>", "log_dir":"build/simv.daidir/kdbresolverLog"}}

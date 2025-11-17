@@ -14,6 +14,9 @@ module decoder_tb;
     logic [3:0] op_ext;
     logic [3:0] r_src;
     logic [7:0] imm; 
+    logic sub; 
+    logic rf_we; 
+    logic [3:0] alu_op; 
     // for mux
     logic alu_imm;
     logic mov;
@@ -25,11 +28,6 @@ module decoder_tb;
     logic lsh; 
     logic lshi;  
 
-
-    logic clk; 
-    logic rst; 
-
-
     decoder decode(
         .inst(inst), 
         .opcode(opcode), 
@@ -37,6 +35,9 @@ module decoder_tb;
         .op_ext(op_ext),
         .r_src(r_src), 
         .imm(imm), 
+        .sub(sub), 
+        .rf_we(rf_we), 
+        .alu_op(alu_op), 
         .alu_imm(alu_imm),
         .mov(mov), 
         .lui(lui), 
@@ -53,10 +54,10 @@ module decoder_tb;
         inst = new_inst;   
         #1;                
 
-        $display("INST=%h  opcode=%0h  op_ext=%0h  r_dest=%0h r_src=%0h imm=%0h | \
-            alu_imm=%b mov=%b lui=%b mem=%b alu=%b pc=%b shift=%b lsh=%b lshi=%b",
+        $display("INST=%h  opcode=%0b  op_ext=%0b  r_dest=%0d r_src=%0d imm=%0d | \
+            alu_imm=%b mov=%b lui=%b mem=%b alu=%b pc=%b shift=%b lsh=%b lshi=%b sub=%b rf_we=%b alu_op=%b",
             inst, opcode, op_ext, r_dest, r_src, imm,
-            alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi);
+            alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi, sub, rf_we, alu_op);
     end
     endtask
   
@@ -67,35 +68,53 @@ module decoder_tb;
     // clk = 0;
 
     $display("\n=== Testing Immediate ALU Instructions ===");
+    $display("-------------TEST 1: ANDI-------------");
     apply_inst({4'h1, 4'h2, 4'h0, 4'h3}); // ANDI
+    $display("-------------TEST 2: ORI-------------");
     apply_inst({4'h2, 4'h2, 4'h0, 4'h3}); // ORI
+    $display("-------------TEST 3: XORI-------------");
     apply_inst({4'h3, 4'h2, 4'h0, 4'h3}); // XORI
+    $display("-------------TEST 4: ADDI-------------");
     apply_inst({4'h5, 4'h2, 4'h0, 4'h3}); // ADDI
-    apply_inst({4'h6, 4'h2, 4'h0, 4'h3}); // ADDUI
-    apply_inst({4'h7, 4'h2, 4'h0, 4'h3}); // ADDCI
+    $display("-------------TEST 5: SUBI-------------");
     apply_inst({4'h9, 4'h2, 4'h0, 4'h3}); // SUBI
-    apply_inst({4'hA, 4'h2, 4'h0, 4'h3}); // SUBCI
+    $display("-------------TEST 6: CMPI-------------");
     apply_inst({4'hB, 4'h2, 4'h0, 4'h3}); // CMPI
+    $display("-------------TEST 7: MOVI-------------");
     apply_inst({4'hD, 4'h2, 4'h0, 4'h3}); // MOVI
-    apply_inst({4'hE, 4'h2, 4'h0, 4'h3}); // MULI
+    $display("-------------TEST 7: LSHI-------------");
+    // $display("-------------TEST 11: MULI-------------");
+    // apply_inst({4'hE, 4'h2, 4'h0, 4'h3}); // MULI
+    $display("-------------TEST 8: LUI-------------");
     apply_inst({4'hF, 4'h2, 4'h0, 4'h3}); // LUI
 
     $display("\n=== Testing SHIFT Opcode ===");
     apply_inst({4'h8, 4'h2, 4'h4, 4'h3}); // SHIFT + LSH op_ext=4
 
     $display("\n=== Testing ALU Register-Register Instructions ===");
+    $display("-------------TEST 1: AND-------------");
     apply_inst({4'h0, 4'h2, 4'h1, 4'h3}); // AND
+    $display("-------------TEST 2: OR-------------");
     apply_inst({4'h0, 4'h2, 4'h2, 4'h3}); // OR
+    $display("-------------TEST 3: XOR-------------");
     apply_inst({4'h0, 4'h2, 4'h3, 4'h3}); // XOR
+    $display("-------------TEST 4: LSH-------------");
     apply_inst({4'h0, 4'h2, 4'h4, 4'h3}); // LSH
+    $display("-------------TEST 5: ADD-------------");
     apply_inst({4'h0, 4'h2, 4'h5, 4'h3}); // ADD
-    apply_inst({4'h0, 4'h2, 4'h8, 4'h3}); // JAL (ALU variant)
+    $display("-------------TEST 6: JAL-------------");
+    apply_inst({4'h0, 4'h2, 4'h8, 4'h3}); // JAL
+    $display("-------------TEST 7: SUB-------------");
     apply_inst({4'h0, 4'h2, 4'h9, 4'h3}); // SUB
-    apply_inst({4'h0, 4'h2, 4'hA, 4'h3}); // SUBC
+    $display("-------------TEST 9: CMP-------------");
     apply_inst({4'h0, 4'h2, 4'hB, 4'h3}); // CMP
+    $display("-------------TEST 10: JCOND-------------");
     apply_inst({4'h0, 4'h2, 4'hC, 4'h3}); // JCOND
+    $display("-------------TEST 11: MOV-------------");
     apply_inst({4'h0, 4'h2, 4'hD, 4'h3}); // MOV
-    apply_inst({4'h0, 4'h2, 4'hE, 4'h3}); // MUL
+    // $display("-------------TEST 12: MUL-------------");
+    // apply_inst({4'h0, 4'h2, 4'hE, 4'h3}); // MUL
+    
 
     $display("\n=== Testing MEM Instructions ===");
     apply_inst({4'h4, 4'h2, 4'h0, 4'h3}); // LOAD

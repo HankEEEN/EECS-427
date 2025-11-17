@@ -1,13 +1,17 @@
 module decoder(
     input logic [15:0] inst,
+
     output logic [3:0] opcode, 
     output logic [3:0] r_dest, 
     output logic [3:0] op_ext, 
     output logic [3:0] r_src,
-    output logic [7:0] imm, 
-    // for mux
-    // alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi
+    output logic [7:0] imm,
+    output logic sub, 
+    output logic rf_we, 
+    output logic [3:0] alu_op, 
 
+    // control mux signals
+    // alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi
     output logic alu_imm,
     output logic mov, 
     output logic lui, 
@@ -16,72 +20,43 @@ module decoder(
     output logic pc, 
     output logic shift, 
     output logic lsh, 
-    output logic lshi 
-
-
-    // output logic is_immediate, 
-    // output logic is_mem,
-    // output logic is_branch, 
-    // output logic is_jump, 
-    // output logic wr_en, 
-    // output logic mem_read,
-    // output logic mem_write
+    output logic lshi
 ); 
     typedef enum logic [3:0] {
-        ALU = 1'h0, // look at OP Code Ext
-        ANDI = 1'h1, 
-        ORI = 1'h2,
-        XORI = 1'h3, 
-        MEM = 1'h4, // look at OP Code Ext 
-        ADDI = 1'h5, 
-        ADDUI = 1'h6, 
-        ADDCI = 1'h7, 
-        SHIFT = 1'h8, 
-        SUBI = 1'h9, 
-        SUBCI = 1'ha, 
-        CMPI = 1'hb, 
-        BCOND = 1'hc, 
-        MOVI = 1'hd, 
-        MULI = 1'he, 
-        LUI = 1'hf 
+        ALU = 4'h0, // look at OP Code Ext
+        ANDI = 4'h1, 
+        ORI = 4'h2,
+        XORI = 4'h3,
+        MEM = 4'h4, // look at OP Code Ext 
+        ADDI = 4'h5, 
+        LSHI = 4'h8, 
+        SUBI = 4'h9, 
+        CMPI = 4'hb, 
+        BCOND = 4'hc, 
+        MOVI = 4'hd, 
+        // MULI = 4'he 
+        LUI = 4'hf 
     } opcodes; 
 
     /* everything // is unused */
 
-    typedef enum logic [3:0] {
-        WAIT = 1'h0, // 
-        AND = 1'h1, 
-        OR = 1'h2,
-        XOR = 1'h3, 
-        LSH = 1'h4,  
-        ADD = 1'h5, 
-        ADDU = 1'h6, // 
-        ADDC = 1'h7, // 
-        JAL = 1'h8, 
-        SUB = 1'h9, 
-        SUBC = 1'ha, 
-        CMP = 1'hb, 
-        JCOND = 1'hc, 
-        MOV = 1'hd, 
-        MUL = 1'he, 
-
+    typedef enum logic [3:0] { 
+        AND = 4'h1, 
+        OR = 4'h2,
+        XOR = 4'h3, 
+        LSH = 4'h4,
+        ADD = 4'h5, 
+        JAL = 4'h8, // is this needed
+        SUB = 4'h9, 
+        CMP = 4'hb, 
+        JCOND = 4'hc, 
+        MOV = 4'hd  
+        //  MUL = 4'he 
     } op_ext_alu; 
 
     typedef enum logic [3:0] {
-        LOAD = 1'h0, 
-        
-        STOR = 1'h4,  
-        SPR = 1'h5, // 
-        ZRXB = 1'h6, // 
-        EI = 1'h7, // 
-
-        RETX = 1'h9,  // 
-        TBIT = 1'ha, // 
-        EXCP = 1'hb,  // 
-
-        SCOND = 1'hd, // 
-        TBITI = 1'he, //
-
+        LOAD = 4'h0,
+        STOR = 4'h4  
     } op_ext_mem; 
 
 
@@ -101,46 +76,147 @@ module decoder(
         shift = 1'b0;
         lsh = 1'b0;
         lshi = 1'b0;
+        rf_we = 1'b0; 
+        sub = 1'b0; 
+        alu_op = 4'b0000; 
 
         case(opcode)
-            ANDI, ORI, XORI, ADDI, ADDUI, ADDCI, SUBI, SUBCI, CMPI, MOVI, MULTI: begin 
+            ANDI, ORI, XORI, ADDI, SUBI, CMPI: begin 
                 alu_imm = 1'b1; 
                 alu = 1'b1;
-                if(opcode == MOVI)
-                    mov = 1'b1; 
+                rf_we = 1'b1; 
+                lui = 1'b1; 
+
+                case(op_ext)
+                    ADDI: begin 
+                        alu_op = 4'b0001; 
+                    end 
+
+                    ANDI: begin 
+                        alu_op = 4'b0010; 
+                    end 
+
+                    ORI: begin 
+                        alu_op = 4'b0100; 
+                    end 
+
+                    XORI: begin 
+                        alu_op = 4'b1000; 
+                    end 
+
+                    SUBI: begin 
+                        alu_op = 4'b0001;                         
+                        sub = 1'b1; 
+                    end 
+
+                    CMPI: begin 
+                        alu_op = 4'b0001; 
+                        sub = 1'b1; 
+                    end
+
+                    default: begin 
+
+                    end 
+                endcase
             end
 
-            LUI: begin 
-                lui = 1'b1;
-                alu = 1'b1;
-            end 
+            ALU: begin
+                alu = 1'b1; 
+                rf_we = 1'b1; 
 
-            ALU: begin 
-                case(opcode_ext_alu)
+                case(op_ext)
+                    ADD: begin 
+                        alu_op = 4'b0001; 
+                    end 
 
+                    AND: begin 
+                        alu_op = 4'b0010; 
+                    end 
+
+                    OR: begin 
+                        alu_op = 4'b0100; 
+                    end 
+
+                    XOR: begin 
+                        alu_op = 4'b1000; 
+                    end 
+
+                    SUB: begin 
+                        alu_op = 4'b0001;                         
+                        sub = 1'b1; 
+                    end 
+
+                    CMP: begin 
+                        alu_op = 4'b0001; 
+                        sub = 1'b1; 
+                    end
+
+                    default: begin 
+
+                    end 
                 endcase
             end 
 
-            SHIFT: begin 
-                shift = 1'b1;
-                lsh = 1'b1;
+            MOV: begin 
+                mov = 1'b1; 
+                alu_op = 4'b0001; 
+                alu = 1'b1; 
+                rf_we = 1'b1; 
             end 
 
-            BCOND: begin 
-                pc = 1'b1; 
+            MOVI: begin 
+                mov = 1'b1; 
+                lui = 1'b1; 
+                alu_imm = 1'b1; 
+                alu_op = 4'b0001;
+                alu = 1'b1;  
+                rf_we = 1'b1;
+            end 
+
+
+            LSH: begin 
+                shift = 1'b1; 
+                rf_we = 1'b1; 
+                lsh = 1'b1; 
+            end 
+
+            LSHI: begin 
+                shift = 1'b1; 
+                rf_we = 1'b1; 
+                lshi = 1'b1; 
+            end 
+
+            LUI: begin 
+                shift = 1'b1;
+                lui = 1'b1; 
+                rf_we = 1'b1; 
             end 
 
             MEM: begin 
                 mem = 1'b1; 
-                case(op_ext_mem) 
+                case(op_ext) 
                     LOAD: begin 
-                        alu = 1'b1; 
+                        rf_we = 1'b1; 
                     end 
 
-                    STORE: begin 
-                        alu = 1'b0; 
+                    STOR: begin 
+                        rf_we = 1'b0; 
                     end 
                 endcase
+            end 
+
+            // JAL: begin // is this needed??  
+
+            // end 
+
+            // Nothing done in decoder
+
+            BCOND: begin 
+
+            end 
+
+            JCOND: begin 
+
             end 
 
             default: begin 
@@ -148,59 +224,6 @@ module decoder(
             end  
 
         endcase 
-            
-                
-
-        // case(opcode)
-        //     ANDI, ORI, XORI, ADDI, ADDUI, ADDCI, SUBI, SUBCI, CMPI, MOVI, MULI, LUI: begin 
-        //         alu_imm = 1'b1; 
-        //         wr_en = 1'b1; 
-        //     end 
-
-        //     SHIFT: begin 
-        //         lsh = 1'b1; 
-        //         wr_en = 1'b1;
-        //     end 
-
-        //     BCOND: begin 
-        //         is_branch = 1'b1;
-        //     end 
-
-        //      MEM: begin
-        //         case(op_ext)
-        //             LOAD: begin
-        //                 is_mem   = 1'b1;
-        //                 wr_en    = 1'b1;
-        //                 mem_read = 1'b1;
-        //             end
-        //             STOR: begin
-        //                 is_mem    = 1'b1;
-        //                 mem_write = 1'b1;
-        //             end
-        //             JCOND: begin 
-        //                 is_jump = 1'b1;
-        //             end
-        //             JAL: begin
-        //                 is_jump = 1'b1;
-        //                 wr_en   = 1'b1; // writes link reg
-        //             end
-        //             default: begin
-        //                 // do nothing
-        //             end
-        //         endcase
-        //     end
-
-        //     ALU: begin
-        //         if (op_ext != 4'b1011) // skip CMP
-        //             wr_en = 1'b1;
-        //     end
-
-
-        //     default: begin 
-
-        //     end 
-
-        // endcase
 
     end 
 
