@@ -30,14 +30,12 @@ module decoder_tb;
 
     decoder decode(
         .inst(inst), 
-        .opcode(opcode), 
         .r_dest(r_dest),
-        .op_ext(op_ext),
         .r_src(r_src), 
-        .imm(imm), 
-        .sub(sub), 
         .rf_we(rf_we), 
         .alu_op(alu_op), 
+        .sub(sub), 
+        .imm(imm), 
         .alu_imm(alu_imm),
         .mov(mov), 
         .lui(lui), 
@@ -56,7 +54,7 @@ module decoder_tb;
 
         $display("INST=%h  opcode=%0b  op_ext=%0b  r_dest=%0d r_src=%0d imm=%0d | \
             alu_imm=%b mov=%b lui=%b mem=%b alu=%b pc=%b shift=%b lsh=%b lshi=%b sub=%b rf_we=%b alu_op=%b",
-            inst, opcode, op_ext, r_dest, r_src, imm,
+            inst, decode.opcode, decode.op_ext, r_dest, r_src, imm,
             alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi, sub, rf_we, alu_op);
     end
     endtask

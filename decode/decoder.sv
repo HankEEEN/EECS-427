@@ -1,17 +1,24 @@
 module decoder(
-    input logic [15:0] inst,
- 
-    output logic [3:0] opcode, 
+    input logic [15:0] inst,  
+
+    // for RF 
     output logic [3:0] r_dest, 
-    output logic [3:0] op_ext, 
     output logic [3:0] r_src,
-    output logic [7:0] imm,
-    output logic sub, 
-    output logic rf_we, 
+    output logic rf_we,
+
+    // for alu
     output logic [3:0] alu_op, 
+    output logic sub, 
+
+    // for shfiter 
+    output logic [7:0] imm,
+
+    // for pc 
+    output logic i_jcond; 
+    output logic i_jal;
+    output logic i_is_branch;  
 
     // control mux signals
-    // alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi
     output logic alu_imm,
     output logic mov, 
     output logic lui, 
@@ -22,6 +29,10 @@ module decoder(
     output logic lsh, 
     output logic lshi
 ); 
+
+    logic [3:0] opcode; 
+    logic [3:0] op_ext; 
+
     typedef enum logic [3:0] {
         ALU = 4'h0, // look at OP Code Ext
         ANDI = 4'h1, 
@@ -46,27 +57,30 @@ module decoder(
         XOR = 4'h3, 
         LSH = 4'h4,
         ADD = 4'h5, 
-        JAL = 4'h8, // is this needed
         SUB = 4'h9, 
         CMP = 4'hb, 
-        JCOND = 4'hc, 
         MOV = 4'hd  
         //  MUL = 4'he 
     } op_ext_alu; 
 
     typedef enum logic [3:0] {
         LOAD = 4'h0,
-        STOR = 4'h4  
+        STOR = 4'h4, 
+        JAL = 4'h8, 
+        JCOND = 4'hc  
     } op_ext_mem; 
 
-
+    
     assign opcode = inst[15:12]; 
     assign r_dest = inst[11:8]; 
     assign op_ext = inst[7:4]; 
     assign r_src = inst[3:0]; 
     assign imm = inst[7:0]; 
 
-    always_comb begin 
+    always_comb begin  
+        sub = 1'b0;
+        rf_we = 1'b0;  
+        alu_op = '0; 
         alu_imm = 1'b0;
         mov = 1'b0;
         lui = 1'b0;
@@ -76,50 +90,62 @@ module decoder(
         shift = 1'b0;
         lsh = 1'b0;
         lshi = 1'b0;
-        rf_we = 1'b0; 
-        sub = 1'b0; 
-        alu_op = 4'b0000; 
+
 
         case(opcode)
-            ANDI, ORI, XORI, ADDI, SUBI, CMPI: begin 
+
+            // IMMEDIATE INSTRUCTIONS
+            ADDI: begin 
+                alu_op = 4'b0001; 
                 alu_imm = 1'b1; 
                 alu = 1'b1;
                 rf_we = 1'b1; 
-                lui = 1'b1; 
+                lui = 1'b1;                
+            end 
 
-                case(op_ext)
-                    ADDI: begin 
-                        alu_op = 4'b0001; 
-                    end 
+            ANDI: begin 
+                alu_op = 4'b0010; 
+                alu_imm = 1'b1; 
+                alu = 1'b1;
+                rf_we = 1'b1; 
+                lui = 1'b1;                
+            end 
 
-                    ANDI: begin 
-                        alu_op = 4'b0010; 
-                    end 
+            ORI: begin 
+                alu_op = 4'b0100; 
+                alu_imm = 1'b1; 
+                alu = 1'b1;
+                rf_we = 1'b1; 
+                lui = 1'b1;                
+            end 
 
-                    ORI: begin 
-                        alu_op = 4'b0100; 
-                    end 
+            XORI: begin 
+                alu_op = 4'b1000; 
+                alu_imm = 1'b1; 
+                alu = 1'b1;
+                rf_we = 1'b1; 
+                lui = 1'b1;                
+            end 
 
-                    XORI: begin 
-                        alu_op = 4'b1000; 
-                    end 
+            SUBI: begin 
+                alu_op = 4'b0001;                         
+                sub = 1'b1; 
+                alu_imm = 1'b1; 
+                alu = 1'b1;
+                rf_we = 1'b1; 
+                lui = 1'b1;                
+            end 
 
-                    SUBI: begin 
-                        alu_op = 4'b0001;                         
-                        sub = 1'b1; 
-                    end 
-
-                    CMPI: begin 
-                        alu_op = 4'b0001; 
-                        sub = 1'b1; 
-                    end
-
-                    default: begin 
-
-                    end 
-                endcase
+            CMPI: begin 
+                alu_op = 4'b0001; 
+                sub = 1'b1; 
+                alu_imm = 1'b1; 
+                alu = 1'b1;
+                rf_we = 1'b1; 
+                lui = 1'b1;                
             end
 
+            // ALU INSTRUCITONS 
             ALU: begin
                 alu = 1'b1; 
                 rf_we = 1'b1; 
@@ -157,6 +183,8 @@ module decoder(
                 endcase
             end 
 
+            // SHIFT INSTRUCTIONS
+
             MOV: begin 
                 mov = 1'b1; 
                 alu_op = 4'b0001; 
@@ -170,9 +198,9 @@ module decoder(
                 alu_imm = 1'b1; 
                 alu_op = 4'b0001;
                 alu = 1'b1;  
-                rf_we = 1'b1;
-            end 
+                rf_we = 1'b1;       
 
+            end 
 
             LSH: begin 
                 shift = 1'b1; 
@@ -192,31 +220,37 @@ module decoder(
                 rf_we = 1'b1; 
             end 
 
+            // BCOND IN CONTROLLER 
             MEM: begin 
-                mem = 1'b1; 
                 case(op_ext) 
                     LOAD: begin 
+                        mem = 1'b1; 
                         rf_we = 1'b1; 
                     end 
 
-                    STOR: begin 
+                    STOR: begin
+                        mem = 1'b1;  
                         rf_we = 1'b0; 
+                    end 
+
+                    JAL: begin 
+                        i_is_branch = 1'b1; 
+                        rf_we = 1'b1; 
+                        pc = 1'b1; 
+                        i_jal = 1'b1; 
+                    end  
+
+                    JCOND: begin 
+                        i_is_branch = 1'b1; 
+                        rf_we = 1'b0; 
+                        i_jcond = 1'b1; 
                     end 
                 endcase
             end 
 
-            // JAL: begin // is this needed??  
-
-            // end 
-
-            // Nothing done in decoder
-
             BCOND: begin 
-
-            end 
-
-            JCOND: begin 
-
+                i_is_branch = 1'b1; 
+                i_jcond = 1'b1; 
             end 
 
             default: begin 
