@@ -17,7 +17,11 @@ module controller_tb;
     logic Z;
     logic N; 
     logic F; 
-    logic [15:0] inst;
+    logic [3:0] opcode; 
+    logic [3:0] r_dest; 
+    logic [3:0] op_ext;
+    logic [3:0] r_src;
+    logic [7:0] imm;
 
     controller control(
         .clk(clk),
@@ -29,7 +33,8 @@ module controller_tb;
         .Z(Z), 
         .N(N),
         .F(F),
-        .inst(inst)
+        .inst_out(inst_out), 
+        .imm8(imm8)
     ); 
   
 
