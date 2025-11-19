@@ -1,0 +1,212 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Chronologic VCS simulator copyright 1991-2025
+Contains Synopsys proprietary information.
+Compiler version X-2025.06-1_Full64; Runtime version X-2025.06-1_Full64;  Nov 19 16:08 2025
+------------------------------------------------
+Time=36000  INST=0152  <-- ADD  R2, R1
+  alu=1 alu_op=1 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=52
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=46000  INST=510a  <-- ADDI 0x0A, R1
+  alu=1 alu_op=1 sub=0 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=56000  INST=0192  <-- SUB  R2, R1
+  alu=1 alu_op=1 sub=1 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=92
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=66000  INST=910a  <-- SUBI 0x0A, R1
+  alu=1 alu_op=1 sub=1 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=76000  INST=01b2  <-- CMP  R2, R1
+  alu=1 alu_op=1 sub=1 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=b2
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=86000  INST=b10a  <-- CMPI 0x0A, R1
+  alu=1 alu_op=1 sub=1 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=96000  INST=0112  <-- AND  R2, R1
+  alu=1 alu_op=2 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=12
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=106000  INST=110a  <-- ANDI 0x0A, R1
+  alu=1 alu_op=2 sub=0 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=116000  INST=0122  <-- OR   R2, R1
+  alu=1 alu_op=4 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=22
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=126000  INST=210a  <-- ORI  0x0A, R1
+  alu=1 alu_op=4 sub=0 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=136000  INST=0132  <-- XOR  R2, R1
+  alu=1 alu_op=8 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=32
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=146000  INST=310a  <-- XORI 0x0A, R1
+  alu=1 alu_op=8 sub=0 alu_imm=1 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=156000  INST=01d2  <-- MOV  R2, R1
+  alu=1 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=d2
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=166000  INST=d10a  <-- MOVI 0x0A, R1
+  alu=1 alu_op=1 sub=0 alu_imm=0 mov=1 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=176000  INST=f10a  <-- LUI  0x0A, R1
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=1
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=a imm=a
+  shift=1 lsh=0 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=186000  INST=8142  <-- LSH  R2, R1
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=42
+  shift=1 lsh=0 lshi=1
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=196000  INST=8102  <-- LSHI 2, R1
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=2
+  shift=1 lsh=0 lshi=1
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=206000  INST=4102  <-- LOAD R1, [R2]
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=2
+  shift=1 lsh=1 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=216000  INST=4142  <-- STOR R1 -> [R2]
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=42
+  shift=1 lsh=1 lshi=0
+  Flags in: Z=0 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=236000  INST=c00a  <-- Bcond EQ, disp=0x0A
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=1 jcond=0
+  rf_we=0 r_dest=0 r_src=a imm=a
+  shift=0 lsh=0 lshi=0
+  Flags in: Z=1 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=246000  INST=40c2  <-- Jcond EQ, R2
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=0 r_src=2 imm=c2
+  shift=1 lsh=1 lshi=0
+  Flags in: Z=1 N=0 F=0
+------------------------------------------------
+
+------------------------------------------------
+Time=256000  INST=4182  <-- JAL R1 <- link, jump R2
+  alu=0 alu_op=0 sub=0 alu_imm=0 mov=0 lui=0
+  mem=0 pc=0 bcond=0 jcond=0
+  rf_we=1 r_dest=1 r_src=2 imm=82
+  shift=1 lsh=1 lshi=0
+  Flags in: Z=1 N=0 F=0
+------------------------------------------------
+
+
+*** Completed stimulus for all 22 baseline EECS 427 instructions ***
+
+$finish called from file "decoder_tb.sv", line 205.
+$finish at simulation time               256000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 256000 ps
+CPU Time:      0.250 seconds;       Data structure size:   0.0Mb
+Wed Nov 19 16:08:56 2025

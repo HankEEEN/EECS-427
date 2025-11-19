@@ -1,0 +1,11 @@
+{"vcs1":{"timestamp_begin":1763585648.122990922, "rt":2.78, "ut":0.27, "st":0.33}}
+{"vcselab":{"timestamp_begin":1763585650.990121752, "rt":0.97, "ut":0.18, "st":0.11}}
+{"link":{"timestamp_begin":1763585652.084855065, "rt":0.72, "ut":0.16, "st":0.10}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1763585647.297087580}
+{"VCS_COMP_START_TIME": 1763585647.297087580}
+{"VCS_COMP_END_TIME": 1763585653.761895608}
+{"elabcom":{"timestamp_begin":1763585648.812887529,"rt":0.84, "ut":0.02, "st":0.06}}
+{"VCS_USER_OPTIONS": "-sverilog -xprop=tmerge +vc -Mupdate -Mdir=build/csrc -line -full64 -kdb -lca -nc -debug_access+all+reverse +warn=noTFIPC +warn=noDEBUG_DEP +warn=noENUMASSIGN +warn=noLCA_FEATURES_ENABLED +define+CLOCK_PERIOD=1.0 decoder_tb.sv decoder.sv -o build/simv"}
+{"kdb": {"elabcom_name":"<Kdbresolver>", "log_dir":"build/simv.daidir/kdbresolverLog"}}
+{"vcs1": {"peak_mem": 407328}}
+{"vcselab": {"peak_mem": 176928}}

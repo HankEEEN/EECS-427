@@ -1,15 +1,5 @@
-// TODO: 
-// Save some control bits for more than one cycle (e.g. write_enable)
-// Make some or all of the flip-flops scannable (scan IR and PSR) - If you dont have an external program memory interface
-
 module decoder(
-    input logic [15:0] inst_in,
-    input logic clk, 
-    input logic rst, 
-
-    input logic Z_in, 
-    input logic N_in, 
-    input logic F_in,  
+    input logic [15:0] inst,  
 
     // for RF 
     output logic [3:0] r_dest, 
@@ -24,8 +14,9 @@ module decoder(
     output logic [7:0] imm,
 
     // for pc 
-    output logic bcond, 
-    output logic jcond,
+    output logic i_jcond; 
+    output logic i_jal;
+    output logic i_is_branch;  
 
     // control mux signals
     output logic alu_imm,
@@ -36,16 +27,11 @@ module decoder(
     output logic pc, 
     output logic shift, 
     output logic lsh, 
-    output logic lshi 
- 
-    // output logic [15:0] inst 
-    // output logic [7:0] imm8
+    output logic lshi
 ); 
 
-    logic       Z, N, F; 
-    logic [3:0] opcode, op_ext, cond; 
-    logic [15:0] inst; 
-    
+    logic [3:0] opcode; 
+    logic [3:0] op_ext; 
 
     typedef enum logic [3:0] {
         ALU = 4'h0, // look at OP Code Ext
@@ -84,47 +70,17 @@ module decoder(
         JCOND = 4'hc  
     } op_ext_mem; 
 
-    typedef enum logic [3:0] {
-        EQ = 4'h0,
-        NE = 4'h1, 
-        GT = 4'h6,  
-        LE = 4'h7, 
-        FS = 4'h8, 
-        FC = 4'h9, 
-        LT = 4'hc,
-        GE = 4'hd 
-    } branch_conditions; 
     
-
-    // INSTRUCTION REGISTER + FLIPFLOPS
-    always_ff @(posedge clk) begin 
-        if(rst) begin 
-            Z    <= 0;
-            F    <= 0; 
-            N    <= 0; 
-            inst <= '0;  
-            // imm8 <= '0;    
-        end else begin 
-            Z    <= Z_in; 
-            F    <= F_in; 
-            N    <= N_in;
-            inst <= inst_in[15:0]; 
-            // imm8 <= inst_in[7:0];       
-        end 
-    end 
+    assign opcode = inst[15:12]; 
+    assign r_dest = inst[11:8]; 
+    assign op_ext = inst[7:4]; 
+    assign r_src = inst[3:0]; 
+    assign imm = inst[7:0]; 
 
     always_comb begin  
-        opcode = inst[15:12]; 
-        r_dest = inst[11:8]; 
-        cond   = inst[11:8]; 
-        op_ext = inst[7:4]; 
-        r_src  = inst[3:0]; 
-        imm    = inst[7:0]; 
-
         sub = 1'b0;
         rf_we = 1'b0;  
         alu_op = '0; 
-
         alu_imm = 1'b0;
         mov = 1'b0;
         lui = 1'b0;
@@ -134,8 +90,6 @@ module decoder(
         shift = 1'b0;
         lsh = 1'b0;
         lshi = 1'b0;
-        bcond = 1'b0; 
-        jcond = 1'b0; 
 
 
         case(opcode)
@@ -280,80 +234,23 @@ module decoder(
                     end 
 
                     JAL: begin 
+                        i_is_branch = 1'b1; 
                         rf_we = 1'b1; 
                         pc = 1'b1; 
-                        jcond = 1'b1; 
+                        i_jal = 1'b1; 
                     end  
 
-                    JCOND: begin
-                        case(cond)
-                            EQ: begin 
-                                jcond = (Z==1) ? 1 : 0; 
-                            end 
-
-                            NE: begin 
-                                jcond = (Z==0) ? 1 : 0; 
-                            end 
-                            GT: begin 
-                                jcond = (N==1) ? 1 : 0; 
-                            end   
-                            LE: begin 
-                                jcond = (N==0) ? 1 : 0; 
-                            end 
-
-                            FS: begin 
-                                jcond = (F==1) ? 1 : 0; 
-                            end 
-
-                            FC: begin 
-                                jcond = (F==0) ? 1 : 0; 
-                            end 
-
-                            LT: begin 
-                                jcond = (N==0 && Z==0) ? 1 : 0; 
-                            end 
-
-                            GE: begin 
-                                jcond = (N==0 || Z==0) ? 1 : 0; 
-                            end 
-                        endcase
+                    JCOND: begin 
+                        i_is_branch = 1'b1; 
+                        rf_we = 1'b0; 
+                        i_jcond = 1'b1; 
                     end 
                 endcase
             end 
 
-            // might need FSM 
             BCOND: begin 
-                case(cond)
-                            EQ: begin 
-                                bcond = (Z==1) ? 1 : 0; 
-                            end 
-
-                            NE: begin 
-                                bcond = (Z==0) ? 1 : 0; 
-                            end 
-                            GT: begin 
-                                bcond = (N==1) ? 1 : 0; 
-                            end   
-                            LE: begin 
-                                bcond = (N==0) ? 1 : 0; 
-                            end 
-
-                            FS: begin 
-                                bcond = (F==1) ? 1 : 0; 
-                            end 
-
-                            FC: begin 
-                                bcond = (F==0) ? 1 : 0; 
-                            end 
-
-                            LT: begin 
-                                bcond = (N==0 && Z==0) ? 1 : 0; 
-                            end 
-
-                            GE: begin 
-                                bcond = (N==0 || Z==0) ? 1 : 0; 
-                            end 
-                        endcase
+                i_is_branch = 1'b1; 
+                i_jcond = 1'b1; 
             end 
 
             default: begin 

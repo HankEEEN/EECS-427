@@ -1,0 +1,25 @@
+rc file Version 1.0
+
+[Design]
+COMPILE_PATH=/home/danjchen/eecs427/EECS-427/pc/EECS-427/decode
+VCS_HOME=/usr/caen/vcs-2025.06-1
+VERDI_HOME=/usr/caen/verdi-2025.06-1
+SystemC=FALSE
+UUM=FALSE
+KDB=TRUE
+USE_NOVAS_HOME=FALSE
+COSIM=FALSE
+TOP=decoder_tb 
+OPTION=-ssv -ssy 
+ELAB_OPTION=-ssv -ssy 
+OTHER_OPTION=-xprop=tmerge 
+ELAB=TRUE
+COMMON_ELAB=TRUE
+SIMV_WRAPPER=FALSE
+ELABCOM_PARTAIL_LOAD=TRUE
+[Value]
+WREALX=ffff534e50535f58
+WREALZ=ffff534e50535f5a
+
+[CompInfo]
+FLOW_OPTS=-kdb=common_elab -ssv -ssy 

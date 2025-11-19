@@ -1,129 +1,208 @@
 `timescale 1ns/1ps
 
-`ifndef CLK_PERIOD
-  `define CLK_PERIOD `CLOCK_PERIOD
-`endif
- 
+module decoder_tb;
 
-module decoder_tb; 
-    logic [15:0] inst; 
+    // DUT signals
+    logic clk;
+    logic rst;
 
-    //OUTPUTS
-    logic [3:0] opcode; 
-    logic [3:0] r_dest; 
-    logic [3:0] op_ext;
+    logic [15:0] inst_in;
+    logic Z_in, N_in, F_in;
+
+    logic [3:0] r_dest;
     logic [3:0] r_src;
-    logic [7:0] imm; 
-    logic sub; 
-    logic rf_we; 
-    logic [3:0] alu_op; 
-    // for mux
+    logic rf_we;
+
+    logic [3:0] alu_op;
+    logic sub;
+
+    logic [7:0] imm;
+
+    logic bcond;
+    logic jcond;
+
     logic alu_imm;
     logic mov;
     logic lui;
-    logic mem; 
-    logic alu; 
-    logic pc; 
-    logic shift; 
-    logic lsh; 
-    logic lshi;  
+    logic mem;
+    logic alu;
+    logic pc;
+    logic shift;
+    logic lsh;
+    logic lshi;
 
-    decoder decode(
-        .inst(inst), 
+    // Instantiate DUT
+    decoder dut (
+        .inst_in(inst_in),
+        .clk(clk),
+        .rst(rst),
+        .Z_in(Z_in),
+        .N_in(N_in),
+        .F_in(F_in),
         .r_dest(r_dest),
-        .r_src(r_src), 
-        .rf_we(rf_we), 
-        .alu_op(alu_op), 
-        .sub(sub), 
-        .imm(imm), 
+        .r_src(r_src),
+        .rf_we(rf_we),
+        .alu_op(alu_op),
+        .sub(sub),
+        .imm(imm),
+        .bcond(bcond),
+        .jcond(jcond),
         .alu_imm(alu_imm),
-        .mov(mov), 
-        .lui(lui), 
-        .mem(mem), 
-        .alu(alu), 
-        .pc(pc), 
-        .shift(shift), 
-        .lsh(lsh), 
-        .lshi(lshi) 
-    ); 
+        .mov(mov),
+        .lui(lui),
+        .mem(mem),
+        .alu(alu),
+        .pc(pc),
+        .shift(shift),
+        .lsh(lsh),
+        .lshi(lshi)
+    );
 
-    task apply_inst(input [15:0] new_inst);
-    begin
-        inst = new_inst;   
-        #1;                
+    // Clock: 10 ns period
+    always #5 clk = ~clk;
 
-        $display("INST=%h  opcode=%0b  op_ext=%0b  r_dest=%0d r_src=%0d imm=%0d | \
-            alu_imm=%b mov=%b lui=%b mem=%b alu=%b pc=%b shift=%b lsh=%b lshi=%b sub=%b rf_we=%b alu_op=%b",
-            inst, decode.opcode, decode.op_ext, r_dest, r_src, imm,
-            alu_imm, mov, lui, mem, alu, pc, shift, lsh, lshi, sub, rf_we, alu_op);
-    end
+    // Simple pretty-printer
+    task automatic print_outputs(string name);
+        $display("------------------------------------------------");
+        $display("Time=%0t  INST=%h  <-- %s", $time, inst_in, name);
+        $display("  alu=%0b alu_op=%h sub=%0b alu_imm=%0b mov=%0b lui=%0b",
+                 alu, alu_op, sub, alu_imm, mov, lui);
+        $display("  mem=%0b pc=%0b bcond=%0b jcond=%0b",
+                 mem, pc, bcond, jcond);
+        $display("  rf_we=%0b r_dest=%0h r_src=%0h imm=%0h",
+                 rf_we, r_dest, r_src, imm);
+        $display("  shift=%0b lsh=%0b lshi=%0b", shift, lsh, lshi);
+        $display("  Flags in: Z=%0b N=%0b F=%0b", Z_in, N_in, F_in);
+        $display("------------------------------------------------\n");
     endtask
-  
 
-    // always #(`CLK_PERIOD/2)    clk = ~clk;
+    task automatic apply_instruction(input [15:0] instr, string name);
+        inst_in = instr;
+        @(posedge clk);  // let it latch into IR and decode
+        #1;              // small delay for comb logic
+        print_outputs(name);
+    endtask
 
     initial begin
-    // clk = 0;
+        // Init
+        clk   = 0;
+        rst   = 1;
+        inst_in = 16'h0000;
+        Z_in = 0;
+        N_in = 0;
+        F_in = 0;
 
-    $display("\n=== Testing Immediate ALU Instructions ===");
-    $display("-------------TEST 1: ANDI-------------");
-    apply_inst({4'h1, 4'h2, 4'h0, 4'h3}); // ANDI
-    $display("-------------TEST 2: ORI-------------");
-    apply_inst({4'h2, 4'h2, 4'h0, 4'h3}); // ORI
-    $display("-------------TEST 3: XORI-------------");
-    apply_inst({4'h3, 4'h2, 4'h0, 4'h3}); // XORI
-    $display("-------------TEST 4: ADDI-------------");
-    apply_inst({4'h5, 4'h2, 4'h0, 4'h3}); // ADDI
-    $display("-------------TEST 5: SUBI-------------");
-    apply_inst({4'h9, 4'h2, 4'h0, 4'h3}); // SUBI
-    $display("-------------TEST 6: CMPI-------------");
-    apply_inst({4'hB, 4'h2, 4'h0, 4'h3}); // CMPI
-    $display("-------------TEST 7: MOVI-------------");
-    apply_inst({4'hD, 4'h2, 4'h0, 4'h3}); // MOVI
-    $display("-------------TEST 7: LSHI-------------");
-    // $display("-------------TEST 11: MULI-------------");
-    // apply_inst({4'hE, 4'h2, 4'h0, 4'h3}); // MULI
-    $display("-------------TEST 8: LUI-------------");
-    apply_inst({4'hF, 4'h2, 4'h0, 4'h3}); // LUI
+        // Reset sequence
+        repeat (2) @(posedge clk);
+        rst = 0;
+        @(posedge clk);
 
-    $display("\n=== Testing SHIFT Opcode ===");
-    apply_inst({4'h8, 4'h2, 4'h4, 4'h3}); // SHIFT + LSH op_ext=4
+        // We'll use:
+        //   Rdest = 1
+        //   Rsrc  = 2
+        //   Imm   = 0x0A
+        // Encodings chosen from ISA PDF and your decoder's field usage.
 
-    $display("\n=== Testing ALU Register-Register Instructions ===");
-    $display("-------------TEST 1: AND-------------");
-    apply_inst({4'h0, 4'h2, 4'h1, 4'h3}); // AND
-    $display("-------------TEST 2: OR-------------");
-    apply_inst({4'h0, 4'h2, 4'h2, 4'h3}); // OR
-    $display("-------------TEST 3: XOR-------------");
-    apply_inst({4'h0, 4'h2, 4'h3, 4'h3}); // XOR
-    $display("-------------TEST 4: LSH-------------");
-    apply_inst({4'h0, 4'h2, 4'h4, 4'h3}); // LSH
-    $display("-------------TEST 5: ADD-------------");
-    apply_inst({4'h0, 4'h2, 4'h5, 4'h3}); // ADD
-    $display("-------------TEST 6: JAL-------------");
-    apply_inst({4'h0, 4'h2, 4'h8, 4'h3}); // JAL
-    $display("-------------TEST 7: SUB-------------");
-    apply_inst({4'h0, 4'h2, 4'h9, 4'h3}); // SUB
-    $display("-------------TEST 9: CMP-------------");
-    apply_inst({4'h0, 4'h2, 4'hB, 4'h3}); // CMP
-    $display("-------------TEST 10: JCOND-------------");
-    apply_inst({4'h0, 4'h2, 4'hC, 4'h3}); // JCOND
-    $display("-------------TEST 11: MOV-------------");
-    apply_inst({4'h0, 4'h2, 4'hD, 4'h3}); // MOV
-    // $display("-------------TEST 12: MUL-------------");
-    // apply_inst({4'h0, 4'h2, 4'hE, 4'h3}); // MUL
-    
+        // ================
+        // 1) Arithmetic & Logic (12 baseline)
+        // ================
 
-    $display("\n=== Testing MEM Instructions ===");
-    apply_inst({4'h4, 4'h2, 4'h0, 4'h3}); // LOAD
-    apply_inst({4'h4, 4'h2, 4'h4, 4'h3}); // STOR
+        // ADD  R2, R1 : 0000 Rdest 0101 Rsrc => 0000 0001 0101 0010 = 0x0152
+        apply_instruction(16'h0152, "ADD  R2, R1");
 
-    $display("\nAll tests completed.\n");
-    $finish;
-end
+        // ADDI Imm, R1 : 0101 Rdest ImmHi ImmLo => 0101 0001 0000 1010 = 0x510A
+        apply_instruction(16'h510A, "ADDI 0x0A, R1");
 
-   
+        // SUB  R2, R1 : 0000 Rdest 1001 Rsrc => 0000 0001 1001 0010 = 0x0192
+        apply_instruction(16'h0192, "SUB  R2, R1");
+
+        // SUBI Imm, R1 : 1001 Rdest ImmHi ImmLo => 1001 0001 0000 1010 = 0x910A
+        apply_instruction(16'h910A, "SUBI 0x0A, R1");
+
+        // CMP  R2, R1 : 0000 Rdest 1011 Rsrc => 0000 0001 1011 0010 = 0x01B2
+        apply_instruction(16'h01B2, "CMP  R2, R1");
+
+        // CMPI Imm, R1 : 1011 Rdest ImmHi ImmLo => 1011 0001 0000 1010 = 0xB10A
+        apply_instruction(16'hB10A, "CMPI 0x0A, R1");
+
+        // AND  R2, R1 : 0000 Rdest 0001 Rsrc => 0000 0001 0001 0010 = 0x0112
+        apply_instruction(16'h0112, "AND  R2, R1");
+
+        // ANDI Imm, R1 : 0001 Rdest ImmHi ImmLo => 0001 0001 0000 1010 = 0x110A
+        apply_instruction(16'h110A, "ANDI 0x0A, R1");
+
+        // OR   R2, R1 : 0000 Rdest 0010 Rsrc => 0000 0001 0010 0010 = 0x0122
+        apply_instruction(16'h0122, "OR   R2, R1");
+
+        // ORI  Imm, R1 : 0010 Rdest ImmHi ImmLo => 0010 0001 0000 1010 = 0x210A
+        apply_instruction(16'h210A, "ORI  0x0A, R1");
+
+        // XOR  R2, R1 : 0000 Rdest 0011 Rsrc => 0000 0001 0011 0010 = 0x0132
+        apply_instruction(16'h0132, "XOR  R2, R1");
+
+        // XORI Imm, R1 : 0011 Rdest ImmHi ImmLo => 0011 0001 0000 1010 = 0x310A
+        apply_instruction(16'h310A, "XORI 0x0A, R1");
+
+        // ================
+        // 2) MOV & Immediates (3 baseline)
+        // ================
+
+        // MOV  R2, R1 : 0000 Rdest 1101 Rsrc => 0000 0001 1101 0010 = 0x01D2
+        apply_instruction(16'h01D2, "MOV  R2, R1");
+
+        // MOVI Imm, R1 : 1101 Rdest ImmHi ImmLo => 1101 0001 0000 1010 = 0xD10A
+        apply_instruction(16'hD10A, "MOVI 0x0A, R1");
+
+        // LUI  Imm, R1 : 1111 Rdest ImmHi ImmLo => 1111 0001 0000 1010 = 0xF10A
+        apply_instruction(16'hF10A, "LUI  0x0A, R1");
+
+        // ================
+        // 3) Shifts (2 baseline)
+        // ================
+
+        // LSH  R2, R1 : 1000 Rdest 0100 Ramount => 1000 0001 0100 0010 = 0x8142
+        // (ISA: opcode=1000, op_ext=0100)
+        apply_instruction(16'h8142, "LSH  R2, R1");
+
+        // LSHI Imm(2), R1 : 1000 Rdest 000s ImmLo
+        // For a simple left shift, s=0, Imm=0x02 => 1000 0001 0000 0010 = 0x8102
+        apply_instruction(16'h8102, "LSHI 2, R1");
+
+        // ================
+        // 4) Memory (2 baseline)
+        // ================
+
+        // LOAD R1, R2 : 0100 Rdest 0000 Raddr => 0100 0001 0000 0010 = 0x4102
+        apply_instruction(16'h4102, "LOAD R1, [R2]");
+
+        // STOR R1, R2 : 0100 Rsrc 0100 Raddr => 0100 0001 0100 0010 = 0x4142
+        apply_instruction(16'h4142, "STOR R1 -> [R2]");
 
 
+        // TODO: MAKE BETTER BRANCH TESTS
+        // ================
+        // 5) Branch / Jump (3 baseline)
+        // ================
+        // We’ll use cond = EQ (0000) for examples.
+
+        // First, set flags so EQ is true (Z=1)
+        Z_in = 1; N_in = 0; F_in = 0;
+        @(posedge clk);
+
+        // Bcond EQ, disp=0x0A : 1100 cond DispHi DispLo
+        // => 1100 0000 0000 1010 = 0xC00A
+        apply_instruction(16'hC00A, "Bcond EQ, disp=0x0A");
+
+        // Jcond EQ, R2 : 0100 cond 1100 Rtarget
+        // => 0100 0000 1100 0010 = 0x40C2
+        apply_instruction(16'h40C2, "Jcond EQ, R2");
+
+        // JAL R1, R2 : 0100 Rlink 1000 Rtarget
+        // => 0100 0001 1000 0010 = 0x4182
+        apply_instruction(16'h4182, "JAL R1 <- link, jump R2");
+
+        $display("\n*** Completed stimulus for all 22 baseline EECS 427 instructions ***\n");
+        $finish;
+    end
 
 endmodule
