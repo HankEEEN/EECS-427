@@ -36,12 +36,12 @@ logic                       r_scan_out;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////    Combinational Next-PC Logic
 ////////////////////////////////////////////////////////////////////////////////
-logic   [ADDR_WIDTH-1:0]    w_rf_addr;
-logic   [ADDR_WIDTH-1:0]    w_ext_disp;
-logic   [ADDR_WIDTH-1:0]    w_pc_plus1;
-logic   [ADDR_WIDTH-1:0]    w_br_addend;
-logic   [ADDR_WIDTH-1:0]    w_pc_addout;
-logic   [ADDR_WIDTH-1:0]    w_pc_next;
+logic           [ADDR_WIDTH-1:0]    w_rf_addr;
+logic signed    [ADDR_WIDTH-1:0]    w_ext_disp;
+logic           [ADDR_WIDTH-1:0]    w_pc_plus1;
+logic           [ADDR_WIDTH-1:0]    w_br_addend;
+logic           [ADDR_WIDTH-1:0]    w_pc_addout;
+logic           [ADDR_WIDTH-1:0]    w_pc_next;
 
 assign w_rf_addr = ~i_rf_addr_n;
 assign w_ext_disp = $signed(i_disp);
@@ -65,9 +65,7 @@ always_ff @(posedge i_sys_clk) begin
         r_pc <= 'd0;
     else if (i_scan_en)
         r_pc <= {r_pc[ADDR_WIDTH-2:0], i_scan_in};
-    else if (i_stall)
-        r_pc <= r_pc;
-    else
+    else if (!i_stall)
         r_pc <= w_pc_next;
 end
 
