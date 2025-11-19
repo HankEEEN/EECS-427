@@ -22,11 +22,8 @@ module pc #(
     input   logic                       i_bcond,
     input   logic                       i_jump,
 
-    // Target Destination Addr given to IMEM to identify which inst to fetch
-    output  logic   [ADDR_WIDTH-1:0]    o_pc2imem,
-
-    // PC + 1 output to the RF for JAL
-    output  logic   [ADDR_WIDTH-1:0]    o_pc2rf
+    // Target Destination Addr given to IMEM and RF
+    output  logic   [ADDR_WIDTH-1:0]    o_pc2imem
 );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -39,37 +36,24 @@ logic                       r_scan_out;
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////    Next-PC Candidates
 ////////////////////////////////////////////////////////////////////////////////
-logic   [ADDR_WIDTH-1:0]    r_pc_normal;
-logic   [ADDR_WIDTH-1:0]    r_bcond_target;
-logic   [ADDR_WIDTH-1:0]    r_rf_target;
-logic   [ADDR_WIDTH-1:0]    r_pc_next;
+logic   [ADDR_WIDTH-1:0]    w_rf_addr;
+logic   [ADDR_WIDTH-1:0]    w_ext_disp;
+logic   [ADDR_WIDTH-1:0]    w_pc_plus1;
+logic   [ADDR_WIDTH-1:0]    w_br_addend;
+logic   [ADDR_WIDTH-1:0]    w_pc_addout;
 
-assign r_pc_normal = r_pc + 1'b1;
-assign r_bcond_target = r_pc + 1'b1 + {{OFFSET_WIDTH{i_disp[OFFSET_WIDTH-1]}}, i_disp};
-assign r_rf_target = ~i_rf_addr_n;
+assign w_rf_addr = ~i_rf_addr_n;
+assign w_ext_disp = $signed(i_disp);
+assign w_pc_plus1 = r_pc + 1'b1;
+assign w_br_addend = i_bcond ? w_ext_disp : 'd0;
+assign w_pc_addout = w_br_addend + w_pc_plus1;
 
 always_comb begin
-    if (i_bcond) 
-        r_pc_next = r_bcond_target;
-    else if (i_jump)
-        r_pc_next = r_rf_target;
+    if (i_jump)
+        w_pc_next = w_rf_addr;
     else
-        r_pc_next = r_pc_normal;
+        w_pc_next = w_pc_addout;
 end
-
-
-////////////////////////////////////////////////////////////////////////////////
-////////////////////    Next PC Logic
-////////////////////////////////////////////////////////////////////////////////
-always_ff @(posedge i_sys_clk) begin
-    if (!i_sys_rstn)
-        r_pc <= 'd0;
-    else if (i_scan_en)
-        r_pc <= {r_pc[ADDR_WIDTH-2:0], i_scan_in};
-    else
-        r_pc <= r_pc_next;
-end
-
 
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////    Scan Chain Logic
@@ -82,8 +66,7 @@ always_ff @(posedge i_sys_clk) begin
 end
 
 
-assign o_pc2imem = r_pc;
-assign o_pc2rf = r_pc_normal;
+assign o_pc = r_pc;
 assign o_scan_out = r_scan_out;
 
 
