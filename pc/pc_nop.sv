@@ -37,16 +37,14 @@ logic                       r_scan_out;
 ////////////////////    Combinational Next-PC Logic
 ////////////////////////////////////////////////////////////////////////////////
 logic           [ADDR_WIDTH-1:0]    w_rf_addr;
-logic signed    [ADDR_WIDTH-1:0]    w_ext_disp;
 logic           [ADDR_WIDTH-1:0]    w_pc_plus1;
 logic           [ADDR_WIDTH-1:0]    w_br_addend;
 logic           [ADDR_WIDTH-1:0]    w_pc_addout;
 logic           [ADDR_WIDTH-1:0]    w_pc_next;
 
 assign w_rf_addr = ~i_rf_addr_n;
-assign w_ext_disp = $signed(i_disp);
 assign w_pc_plus1 = r_pc + 1'b1;
-assign w_br_addend = i_bcond ? w_ext_disp : 'd0;
+assign w_br_addend = i_bcond ? {{OFFSET_WIDTH{i_disp[OFFSET_WIDTH-1]}}, i_disp} : 'd0;
 assign w_pc_addout = w_br_addend + w_pc_plus1;
 
 always_comb begin
