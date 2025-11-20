@@ -18,11 +18,12 @@ logic                               r_scan_en;
 logic                               r_scan_in;
 logic                               w_scan_out;
 logic                               r_stall;
-logic       [DISP_WIDTH-1:0]      r_disp;
+logic       [DISP_WIDTH-1:0]        r_disp;
 logic       [ADDR_WIDTH-1:0]        r_rf_addr_n;
 logic                               r_bcond;
 logic                               r_jump;
-logic       [ADDR_WIDTH-1:0]        r_pc;
+logic       [ADDR_WIDTH-1:0]        w_pc2imem;
+logic       [ADDR_WIDTH-1:0]        w_pc2rf;
 
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -47,7 +48,8 @@ pc_new #(
     .i_bcond                (r_bcond),
     .i_jump                 (r_jump),
 
-    .o_pc                   (w_pc)
+    .o_pc2imem              (w_pc2imem),
+    .o_pc2rf                (w_pc2rf)
 );
 
 
@@ -89,7 +91,6 @@ initial begin
     r_rf_addr_n = 'd0;
     r_bcond = 1'b0;
     r_jump = 1'b0;
-    r_pc = 'd0;
     repeat(20) @(posedge r_sys_clk);
 
     // PC = 10
@@ -131,6 +132,7 @@ initial begin
     r_rf_addr_n = 'hFFFF;
     @(posedge r_sys_clk) ;
     r_jump = 1'b0;
+    @(posedge r_sys_clk);
     // o_pc = 103
 
     // Test 6 - Test scan chain DFT
@@ -152,8 +154,8 @@ initial begin
     r_scan_in = 1'b0;
     r_pattern_out = 16'h0000;
     for (int i = ADDR_WIDTH - 1; i >= 0; i--) begin
-        r_pattern_out[i] = w_scan_out;
         @(posedge r_sys_clk);
+        r_pattern_out[i] = w_scan_out;
     end
     r_scan_en = 1'b0;
     $display("\n--- Shifting out pattern 0x%h ---", r_pattern_out);

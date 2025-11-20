@@ -23,7 +23,8 @@ module pc_new #(
     input   logic                       i_jump,
 
     // Target Destination Addr given to IMEM and RF
-    output  logic   [ADDR_WIDTH-1:0]    o_pc
+    output  logic   [ADDR_WIDTH-1:0]    o_pc2imem,
+    output  logic   [ADDR_WIDTH-1:0]    o_pc2rf
 );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -79,7 +80,8 @@ always_ff @(posedge i_sys_clk) begin
 end
 
 
-assign o_pc = r_pc;
+assign o_pc2imem = r_pc;
+assign o_pc2rf = w_pc_plus1;
 assign o_scan_out = r_scan_out;
 
 
