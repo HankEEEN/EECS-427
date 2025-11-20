@@ -1,4 +1,4 @@
-module pc #(
+module pc_new #(
     parameter ADDR_WIDTH = 16,
     parameter OFFSET_WIDTH = 8
 ) (
