@@ -1,0 +1,68 @@
+Invoking simulator...
+
+./simv -no_save +UVM_VERDI_TRACE=UVM_AWARE +fsdb+gate=off -ucli2Proc -ucli
+debImport "-i" "-simflow" "-dbdir" "./simv.daidir"
+*Verdi* Loading libsscore_vcs202506.so
+
+FSDB Dumper for VCS, Release Verdi_X-2025.06-1, Linux x86_64/64bit, 07/19/2025
+(C) 1996 - 2025 by Synopsys, Inc.
+
+*Verdi* : Create FSDB file '/tmp/zihanfu470/inter.fsdb'
+
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+*Verdi* : Enable RPC Server(2830458)
+
+srcTBInvokeSim
+Chronologic VCS simulator copyright 1991-2025
+Contains Synopsys proprietary information.
+Compiler version X-2025.06-1_Full64; Runtime version X-2025.06-1_Full64;  Nov 19 21:38 2025
+Information: Term was not able to be set up using xterm-256color. Using "xterm" by default instead. (CLE-10)
+Verdi>fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_sys_clk"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_sys_rstn"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_scan_en"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_scan_in"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.o_scan_out"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_stall"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_disp"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_rf_addr_n"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_bcond"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.i_jump"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.o_pc"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.r_pc"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.r_scan_out"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.w_rf_addr"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.w_pc_plus1"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.w_br_addend"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.w_pc_addout"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.pc_new_dut.w_pc_next"  +all +trace_process;fsdbDumpflush 
+
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_sys_clk).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_sys_rstn).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_scan_en).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_scan_in).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.o_scan_out).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_stall).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_disp).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_rf_addr_n).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_bcond).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.i_jump).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.o_pc).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.r_pc).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.r_scan_out).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.w_rf_addr).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.w_pc_plus1).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.w_br_addend).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.w_pc_addout).
+*Verdi* : Dumping the signal (pc_new_tb.pc_new_dut.w_pc_next).
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+Verdi>fsdbDumpvars 1 "pc_new_tb.r_sys_clk"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_sys_rstn"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_scan_en"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_scan_in"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.w_scan_out"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_stall"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_disp"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_rf_addr_n"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_bcond"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_jump"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_pc"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.w_pc"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_pattern_in"  +all +trace_process;fsdbDumpvars 1 "pc_new_tb.r_pattern_out"  +all +trace_process;fsdbDumpflush 
+
+*Verdi* : Dumping the signal (pc_new_tb.r_sys_clk).
+*Verdi* : Dumping the signal (pc_new_tb.r_sys_rstn).
+*Verdi* : Dumping the signal (pc_new_tb.r_scan_en).
+*Verdi* : Dumping the signal (pc_new_tb.r_scan_in).
+*Verdi* : Dumping the signal (pc_new_tb.w_scan_out).
+*Verdi* : Dumping the signal (pc_new_tb.r_stall).
+*Verdi* : Dumping the signal (pc_new_tb.r_disp).
+*Verdi* : Dumping the signal (pc_new_tb.r_rf_addr_n).
+*Verdi* : Dumping the signal (pc_new_tb.r_bcond).
+*Verdi* : Dumping the signal (pc_new_tb.r_jump).
+*Verdi* : Dumping the signal (pc_new_tb.r_pc).
+*Verdi* : Dumping the signal (pc_new_tb.w_pc).
+*Verdi* : Dumping the signal (pc_new_tb.r_pattern_in).
+*Verdi* : Dumping the signal (pc_new_tb.r_pattern_out).
+*Verdi* : Flush all FSDB Files at 0 ps.
+
+Verdi>run
+--- Shifting in pattern 0x00aa ---
+
+--- Shifting out pattern 0x005a ---
+$finish called from file "pc_new_tb.sv", line 161.
+$finish at simulation time              1390000
+Simulation complete, time is 1390000 ps.
+pc_new_tb.sv, 161 :     $finish;

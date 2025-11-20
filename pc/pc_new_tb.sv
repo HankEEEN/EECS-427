@@ -18,7 +18,7 @@ logic                               r_scan_en;
 logic                               r_scan_in;
 logic                               w_scan_out;
 logic                               r_stall;
-logic       [OFFSET_WIDTH-1:0]      r_disp;
+logic       [DISP_WIDTH-1:0]      r_disp;
 logic       [ADDR_WIDTH-1:0]        r_rf_addr_n;
 logic                               r_bcond;
 logic                               r_jump;
@@ -73,12 +73,20 @@ end
 ////////////////////////////////////////////////////////////////////////////////
 ////////////////////    Stimuli Setup
 ////////////////////////////////////////////////////////////////////////////////
+logic       [ADDR_WIDTH-1:0]    r_pattern_in;
+logic       [ADDR_WIDTH-1:0]    r_pattern_out;
+
+initial begin
+    r_pattern_in = 'd0;
+    r_pattern_out = 'd0;
+end
+
 initial begin
     r_scan_en = 1'b0;
     r_scan_in = 1'b0;
     r_stall = 1'b0;
     r_disp = 'd0;
-    r_f_addr_n = 'd0;
+    r_rf_addr_n = 'd0;
     r_bcond = 1'b0;
     r_jump = 1'b0;
     r_pc = 'd0;
