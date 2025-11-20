@@ -112,7 +112,7 @@ Branch = 1
 [DesignTree]
 IfShowModule = {TRUE, FALSE}
 [DisabledMessages]
-version = Verdi_R-2020.12-SP2-1
+version = Verdi_X-2025.06-1
 [Editor]
 editorName = TurboEditor
 [Emacs]
@@ -230,10 +230,13 @@ TclAutoSource =
 cmd_enter_form = FALSE
 SyncBrowserDir = TRUE
 ViewMouse13Swap = FALSE
-SignalCaseInSensitive = FALSE
 ColorThemeModern = bright
-prevColorThemeModern = classic
 version = Verdi_X-2025.06-1
+recent_commands_Verdi = tbvDebugRunContinue,hbInvokeSignalPane,hbInvokeWave
+recent_commands_nWave = zoomAll
+prevColorThemeModern = bright
+SignalCaseInSensitive = FALSE
+FindBarVisible = 
 [GlobalProp]
 ErrWindow_Font = Helvetica_M_R_12
 [Globals]
@@ -285,6 +288,14 @@ bSkipStateCell = False
 bSkipFFCell = False
 bScpecifyCellNameCase = False
 bSpecifyPinNameCase = False
+[InteractiveDebug]
+tbvLocalWatchArrayLimit = 50
+Watch_0 = 150 80 80 0
+Watch_1 = 150 80 80 538
+Watch_2 = 150 80 80 200
+Watch_3 = 150 80 80 200
+Watch_4 = 150 80 80 200
+Watch_5 = 150 80 80 200
 [Language]
 EditWindow_Font = COURIER12
 Background = ID_WHITE
@@ -389,7 +400,7 @@ savePropStat = FALSE
 savePropDtl = TRUE
 [QtDialog]
 qPrefDlg = 912,505,716,424
-QwUserAskDlg = 1118,660,324,130
+QwUserAskDlg = 1118,671,324,128
 [Relationship]
 hideRecursiceNode = FALSE
 [Safety]
@@ -401,6 +412,7 @@ ErrorObject = ID_GRAY5
 AnnotateSignal = TRUE
 HighlightSafetyObject = TRUE
 [Session Cache]
+1 = /home/zihanfu/eecs427/pc/build/verdiLog/novas_autosave.ses
 [Signal List]
 sigListForegroundColor = ID_BLACK
 sigListHighlightColor = ID_BLUE3
@@ -482,6 +494,7 @@ uvmAware = TRUE
 smartlog = FALSE
 [SimulationPlus2]
 eventDumpUnfinish = FALSE
+dumpPowerRoot = FALSE
 [Source]
 wordWrapOn = TRUE
 viewReuse = TRUE
@@ -511,10 +524,14 @@ ohSimType = VerilogXL
 nLineSize = 1024
 [Test]
 verbose_progress = FALSE
+[TestBenchBrowser]
+-showUVMDynamicHierTreeWin = FALSE
+DataViewTooltip = TRUE
 [Text]
 hdlTypeName = blue4
 hdlLibrary = blue4
 viewport = 396 392 445 487
+textHvlDriverLoad = ID_BLUE3
 hdlOther = ID_BLACK
 hdlComment = ID_GRAY1
 hdlKeyword = ID_BLUE5
@@ -548,7 +565,7 @@ hdlEscSignal = ID_BLACK
 hdlEscInSignal = ID_BLACK
 hdlEscOutSignal = ID_BLACK
 hdlEscInOutSignal = ID_BLACK
-textBackgroundColor = ID_GRAY6
+textBackgroundColor = ID_WHITE
 textHiliteBK = ID_BLUE5
 textHiliteText = ID_WHITE
 textTracedMark = ID_GREEN2
@@ -560,14 +577,14 @@ textFuncAnnotText = ID_BLUE2
 textAnnotText = ID_BLACK
 textUserDefAnnotText = ID_BLACK
 ComputedSignal = ID_PURPLE5
-textAnnotTextShadow = ID_WHITE
+textAnnotTextShadow = ID_GRAY6
 parenthesisBGColor = ID_YELLOW5
 codeInParenthesis = ID_CYAN5
-text3DLight = ID_WHITE
+text3DLight = ID_GRAY6
 text3DShadow = ID_BLACK
 textHvlDriver = ID_GREEN3
 textHvlLoad = ID_YELLOW3
-textHvlDriverLoad = ID_BLUE3
+textHGridline = ID_GRAY6
 irOutline = ID_RED2
 irDriver = ID_YELLOW5
 irLoad = ID_BLACK
@@ -581,7 +598,7 @@ hdlPackage = ID_BLUE5
 hdlRefPackage = ID_BLUE5
 hdlAlias = ID_BLACK
 hdlGeneric = ID_BLUE5
-specialAnnotShadow = ID_BLUE1
+specialAnnotShadow = ID_GRAY6
 hdlZeroInHead = ID_GREEN2
 hdlZeroInComment = ID_GREEN2
 hdlPslHead = ID_BLACK
@@ -592,9 +609,9 @@ pdmlIdentifier = ID_BLACK
 pdmlCommand = ID_BLACK
 pdmlMacro = ID_BLACK
 font = COURIER12
-annotFont = Helvetica_M_R_10
+annotFont = FIXED12
 [Text.1]
-viewport = 820 330 900 700 45
+viewport = 0 32 2560 1364 45
 [TextPrinter]
 Orientation = Landscape
 Indicator = FALSE
@@ -681,43 +698,108 @@ viaLogViewerDefaultRuleInterForm = "share/VIA/Apps/PredefinedRules/UVM_OVM_i_rul
 [VIA.interactiveDebug.preference]
 DefaultDisplayTimeUnit = "1.000000ns"
 DefaultLogTimeUnit = "1.000000ns"
+[VIA.interactiveDebug.preference.vgifColumnSettingRC]
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0]
+parRuleSets = "/usr/caen/verdi-2025.06-1/share/VIA/Apps/PredefinedParRules/par_rule_OVM.rc /usr/caen/verdi-2025.06-1/share/VIA/Apps/PredefinedParRules/par_rule_UVM.rc /usr/caen/verdi-2025.06-1/share/VIA/Apps/PredefinedParRules/par_rule_LP.rc /usr/caen/verdi-2025.06-1/sh\
+are/VIA/Apps/PredefinedParRules/par_rule_VCS.rc "
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column0]
+name = "Block's First Line"
+width = 120
+visualIndex = 1
+isHidden = TRUE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column1]
+name = "Severity"
+width = 60
+visualIndex = 2
+isHidden = FALSE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column2]
+name = "Reporter"
+width = 60
+visualIndex = 3
+isHidden = FALSE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column3]
+name = "Code"
+width = 60
+visualIndex = 4
+isHidden = TRUE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column4]
+name = "Type"
+width = 60
+visualIndex = 5
+isHidden = TRUE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column5]
+name = "Message"
+width = 2000
+visualIndex = 6
+isHidden = FALSE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.interactiveDebug.preference.vgifColumnSettingRC.setting0.column6]
+name = "Time"
+width = 60
+visualIndex = 0
+isHidden = FALSE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
 [VIA.oneSearch.preference]
-isOneSearchVisible = TRUE
 DefaultDisplayTimeUnit = "1.000000ns"
 DefaultLogTimeUnit = "1.000000ns"
+isOneSearchVisible = TRUE
 [VIA.oneSearch.preference.vgifColumnSettingRC]
 [VIA.oneSearch.preference.vgifColumnSettingRC.setting0]
 parRuleSets = ""
 [VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column0]
-name = Code
+name = "Severity"
 width = 60
 visualIndex = 2
 isHidden = TRUE
 isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
 [VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column1]
-name = Type
-width = 60
-visualIndex = 3
-isHidden = TRUE
-isUserChangeColumnVisible = FALSE
-[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column2]
-name = Message
-width = 2000
-visualIndex = 4
-isHidden = FALSE
-isUserChangeColumnVisible = FALSE
-[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column3]
-name = Time
+name = "Block's First Line"
 width = 60
 visualIndex = 0
-isHidden = TRUE
+isHidden = FALSE
 isUserChangeColumnVisible = FALSE
-[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column4]
-name = Severity
+isColFilterColorCoding = FALSE
+[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column2]
+name = "Message"
+width = 2000
+visualIndex = 5
+isHidden = FALSE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column3]
+name = "Time"
 width = 60
 visualIndex = 1
 isHidden = TRUE
 isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column4]
+name = "Code"
+width = 60
+visualIndex = 3
+isHidden = TRUE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
+[VIA.oneSearch.preference.vgifColumnSettingRC.setting0.column5]
+name = "Type"
+width = 60
+visualIndex = 4
+isHidden = TRUE
+isUserChangeColumnVisible = FALSE
+isColFilterColorCoding = FALSE
 [VIA.parRule]
 parRulePathInterForm = ""
 [VIA.ruleHistory]
@@ -801,10 +883,15 @@ ShowDeltaTime = TRUE
 WaveExtendLastTick = TRUE
 displayMessageLabelOnly = TRUE
 AutoApplySeverityColor = TRUE
-viewPort = 54 237 960 332 100 65
+scope_to_save_with_macro
+open_file_dir
+open_rc_file_dir
+getSignalForm = 0 0 800 479 100 30 100 30
+viewPort = 0 11 2560 1229 225 65
 legendBackground = -c ID_BLACK
 valueBackground = -c ID_BLACK
 curveBackground = -c ID_BLACK
+getSignalSignalList_BackgroundColor = -c ID_WHITE
 glitchColor = -c ID_RED5
 cursor = -c ID_YELLOW5 -lw 1 -ls long_dashed
 marker = -c ID_WHITE -lw 1 -ls dash_dot_l
@@ -867,6 +954,7 @@ analogGridLayer = -c ID_GRAY6
 analogRulerLayer = -c ID_GRAY6
 keywordLayer = -c ID_RED5
 loadedLayer = -c ID_BLUE5
+loadingLayer = -c ID_GRAY1
 qdsCurMarkerLayer = -c ID_BLUE5
 qdsBrkMarkerLayer = -c ID_GREEN5
 qdsTrgMarkerLayer = -c ID_RED5
@@ -939,9 +1027,11 @@ displayDeltaY = FALSE
 signal_rc_abspath = TRUE
 signal_rc_no_natural_bus_range = FALSE
 save_scope_with_macro = FALSE
-scope_to_save_with_macro
 FitAnaByBusSize = FALSE
+DisplayVerticalZoomTools = FALSE
+DisplayIndicateBar = FALSE
 overlay_added_analog_signals = FALSE
+overlay_same_added_analog_signals = FALSE
 case_insensitive = FALSE
 resaveSignals = TRUE
 adjustBusPrefix = adjustBus_
@@ -963,9 +1053,8 @@ printBasic = 1 0 0 FALSE FALSE
 printDest = -printer {}
 printSignature = {%f %h %t} {}
 curveWindow_Drag&Drop_Mode = TRUE
+RecentFile1 = "\"/tmp/zihanfu470/inter.fsdb\""
 open_file_time_range = FALSE
-open_file_dir
-open_rc_file_dir
 legend_window_font = -f COURIER12 -c ID_CYAN5
 value_window_font = -f COURIER12 -c ID_CYAN5
 curve_window_font = -f COURIER12 -c ID_CYAN5
@@ -973,18 +1062,18 @@ group_name_font = -f COURIER12 -c ID_GREEN5
 ruler_value_font = -f COURIER12 -c ID_CYAN5
 analog_ruler_value_font = -f COURIER12 -c ID_CYAN5
 comment_string_font = -f COURIER12 -c ID_RED5
-getsignal_form_font = -f COURIER12
+getsignal_form_font = -f COURIER12 
 SigsCheckNum = on 1000
 filter_synthesized_net = off n
 filterOutNet = on
 exclude_signal_with_prefix = off n
 synthesizeNetOnly = on
-filter_synthesized_instance = off
+filter_synthesized_instance = off 
 filterOutInstance = on
 showGroupTree = TRUE
 hierGroupDelim = /
 MsgSeverityColor = {y \"Severity\"==\"1\" ID_RED5} {y \"Severity\"==\"2\" ID_RED6} {y \"Severity\"==\"3\" ID_RED7} {y \"Severity\"==\"4\" ID_RED8} {y \"Severity\"==\"5\" ID_ORANGE5} {y \"Severity\"==\"6\" ID_ORANGE6} {y \"Severity\"==\"7\" ID_ORANGE7} {y \"Severity\"==\"8\" \
-ID_GREEN7} {y \"Severity\"==\"9\" ID_GREEN6} {y \"Severity\"==\"10\" ID_GREEN5}
+ID_GREEN7} {y \"Severity\"==\"9\" ID_GREEN6} {y \"Severity\"==\"10\" ID_GREEN5} 
 waveDblClkActiveTrace = on
 SEQShowComparisonIcon = TRUE
 SEQAddDriverLoadInSameGroup = TRUE
@@ -996,8 +1085,7 @@ maskFsaRegRule = TRUE
 maskFsaCoreRule = TRUE
 maskFsaSfsmRule = TRUE
 maskFsaEcrRule = TRUE
-getSignalSignalList_BackgroundColor = -c ID_WHITE 
-loadingLayer = -c ID_GRAY1 
+maskTPropagation = TRUE
 [cov_hier_name_column]
 justify = TRUE
 [coverageColors]
@@ -1059,6 +1147,7 @@ HvpMergeTool =
 ShowMergeMenuItem = FALSE
 fsmScoreMode = transition
 [eco]
+NameRule = 
 IsFreezeSilicon = FALSE
 cellQuantityManagement = FALSE
 ManageMode = INSTANCE_NAME
@@ -1066,10 +1155,10 @@ SpareCellsPinsManagement = TRUE
 LogCommitReport = FALSE
 InputPinStatus = 1
 OutputPinStatus = 2
-NameRule = 
 RevisedComponentColor = ID_BLUE5
 SpareCellColor = ID_RED5
-CommentFormat = Novas ECO updated by ${UserName} ${Date} ${Time}
+UserName = zihanfu
+CommentFormat = Novas ECO updated by ${UserName} ${Date} ${Time} 
 PrefixN = eco_n
 PrefixP = eco_p
 PrefixI = eco_i
@@ -1200,9 +1289,70 @@ tsSymLibSave = True
 tsSymLibSetting = 
 tsSimModelSetting = 
 tsCellModelSetting = 0
+[rtla]
+RtlaDbPath = 
 [schematics]
 viewport = 178 262 638 516
 ComputedAnnotColor = ID_PURPLE5
+ConnectedPinColor = ID_YELLOW6
+ConnectedPinColor_qt = #ffff73
+AutoMergeSettingFile = 
+PowerMapFile = 
+GroundMapFile = 
+CopyScopeNameDelimiter = 
+RegNamingRule = 
+moduleFontName = "Default"
+moduleFontColor = ID_CYAN5
+moduleFontAdjustedSize = 5
+moduleFontBold = FALSE
+moduleFontItalic = FALSE
+moduleFontOverride = FALSE
+moduleFontAutoAdjust = TRUE
+instFontName = "Default"
+instFontColor = ID_CYAN5
+instFontAdjustedSize = 5
+instFontBold = FALSE
+instFontItalic = FALSE
+instFontOverride = FALSE
+instFontAutoAdjust = TRUE
+portFontName = "Default"
+portFontColor = ID_CYAN5
+portFontAdjustedSize = 3
+portFontBold = FALSE
+portFontItalic = FALSE
+portFontOverride = FALSE
+portFontAutoAdjust = TRUE
+instPortFontName = "Default"
+instPortFontColor = ID_CYAN5
+instPortFontAdjustedSize = 3
+instPortFontBold = FALSE
+instPortFontItalic = FALSE
+instPortFontOverride = FALSE
+instPortFontAutoAdjust = TRUE
+netFontName = "Default"
+netFontColor
+netFontAdjustedSize = 3
+netFontBold = FALSE
+netFontItalic = FALSE
+netFontOverride = FALSE
+netFontAutoAdjust = TRUE
+commentFontName = "Default"
+commentFontColor = ID_BLUE3
+commentFontAdjustedSize = 10
+commentFontBold = FALSE
+commentFontItalic = FALSE
+commentFontOverride = FALSE
+commentFontAutoAdjust = TRUE
+SubScopeFontName = "Default"
+SubScopeFontColor = ID_BLUE3
+SubScopeFontAdjustedSize = 8
+SubScopeFontBold = FALSE
+SubScopeFontItalic = FALSE
+SubScopeFontOverride = FALSE
+SubScopeFontAutoAdjust = TRUE
+clockTreeBrowser-MarkerColor = ID_YELLOW5
+clockTreeBrowser-SelectedColor = ID_BLUE5
+clockTreeBrowser-ViolationColor = ID_RED5
 schBackgroundColor = ID_BLACK lineSolid 1
 schBackgroundColor_qt = #000000 qt_solidLine 1
 schBodyColor = ID_ORANGE6 lineSolid 1
@@ -1223,14 +1373,14 @@ schAsmLatchColor = ID_BLUE7 lineSolid 1
 schAsmLatchColor_qt = #a5a5ff qt_solidLine 1
 schPortColor = ID_ORANGE6 lineSolid 1
 schPortColor_qt = #ffb973 qt_solidLine 1
-schCellNameColor = ID_GRAY6 lineSolid 1
-schCellNameColor_qt = #e0e0e0 qt_solidLine 1
-schPortNameColor = ID_GRAY6 lineSolid 1
-schPortNameColor_qt = #e0e0e0 qt_solidLine 1
-schInstNameColor = ID_GRAY6 lineSolid 1
-schInstNameColor_qt = #e0e0e0 qt_solidLine 1
-schAnnotColor = ID_GRAY6 lineSolid 1
-schAnnotColor_qt = #e0e0e0 qt_solidLine 1
+schCellNameColor = ID_GRAY3 lineSolid 1
+schCellNameColor_qt = #808080 qt_solidLine 1
+schPortNameColor = ID_GRAY3 lineSolid 1
+schPortNameColor_qt = #808080 qt_solidLine 1
+schInstNameColor = ID_GRAY3 lineSolid 1
+schInstNameColor_qt = #808080 qt_solidLine 1
+schAnnotColor = ID_GRAY3 lineSolid 1
+schAnnotColor_qt = #808080 qt_solidLine 1
 schEdgeSensitiveColor = ID_ORANGE6 lineSolid 1
 schEdgeSensitiveColor_qt = #ffb973 qt_solidLine 1
 schCLKNetColor = ID_RED6 lineSolid 1
@@ -1343,6 +1493,8 @@ schZTimeHighlightGroup = ID_RED5 lineSolid 1
 schZTimeHighlightGroup_qt = #ff0101 qt_solidLine 1
 schZTimeGroup = ID_GRAY4 lineSolid 1
 schZTimeGroup_qt = #a0a0a0 qt_solidLine 1
+schBlackBox = ID_GRAY6 lineSolid 1
+schBlackBox_qt = #e0e0e0 qt_solidLine 1
 schGridColor = ID_GRAY3 lineSolid 1
 schGridColor_qt = #808080 qt_solidLine 1
 schCtrlPointColor = ID_GREEN5 lineSolid 1
@@ -1410,8 +1562,6 @@ schFillTipBackColor = ID_GRAY6 blank
 schFillFsmBlock = ID_BLUE7 blank
 schFillBlackBoxColor = ID_BLUE3 dots
 schFillCmtColor = ID_YELLOW4 fill_solid
-ConnectedPinColor = ID_YELLOW6
-ConnectedPinColor_qt = #ffff73
 fanInOutLevel = 1
 schSwapDragBtn13 = False
 schEnableLMBDnd = off
@@ -1452,10 +1602,13 @@ modulePortName = False
 stopOnModuleBoundary = False
 stopOnFSM = True
 stopOnMOSCell = FALSE
+checkFloatingNet = False
 TraceWithPolarity = False
+AMSTraceEnabled = False
+AMSTraceFullPath = False
+AMSTraceDiodePropagating = Bidirectional
 shortName = True
 AutoMerge = False
-AutoMergeSettingFile = 
 ShowPowerTip = True
 schModuleName = True
 DisplayLengthwiseTransistor = False
@@ -1471,6 +1624,7 @@ UpperPassThroughNets = False
 ShowNetConnection = False
 ShowAllHierPortsOnBoundary = False
 LineupRegistersVertically = False
+FixViewOnTraceStartingInst = False
 HighlightTracedNet = False
 fullHierPartialDis = False
 ComboGLKFromSDC = False
@@ -1486,16 +1640,14 @@ DetailLevel = 4
 RecogFSM = True
 ExpandGenBlock = True
 RecogMem = True
-PowerMapFile = 
-GroundMapFile = 
-CopyScopeNameDelimiter = 
 sdfDelayScale = Default
 sdfDelayType = Typical
 sdfDelayPrecision = 0.01
-RegNamingRule = 
 MagnifierSize = Medium
 MagnifierRatio = X4
 HideUnusedPin = True
+HideMacroUnusedPin = True
+HideFlipFlopLatchUnusedPin = False
 HideUnusedPinThreshold = 15
 bMaxTraceCnt = False
 MaxTraceCnt = 0
@@ -1526,58 +1678,6 @@ PageOrient = Landscape
 PnRAutoFlipPort = True
 PnRAutoFlipPortFourSide = False
 IsShowConstantValue = True
-moduleFontName = "Default"
-moduleFontColor = ID_CYAN5
-moduleFontAdjustedSize = 5
-moduleFontBold = FALSE
-moduleFontItalic = FALSE
-moduleFontOverride = FALSE
-moduleFontAutoAdjust = TRUE
-instFontName = "Default"
-instFontColor = ID_CYAN5
-instFontAdjustedSize = 5
-instFontBold = FALSE
-instFontItalic = FALSE
-instFontOverride = FALSE
-instFontAutoAdjust = TRUE
-portFontName = "Default"
-portFontColor = ID_CYAN5
-portFontAdjustedSize = 3
-portFontBold = FALSE
-portFontItalic = FALSE
-portFontOverride = FALSE
-portFontAutoAdjust = TRUE
-instPortFontName = "Default"
-instPortFontColor = ID_CYAN5
-instPortFontAdjustedSize = 3
-instPortFontBold = FALSE
-instPortFontItalic = FALSE
-instPortFontOverride = FALSE
-instPortFontAutoAdjust = TRUE
-netFontName = "Default"
-netFontColor
-netFontAdjustedSize = 3
-netFontBold = FALSE
-netFontItalic = FALSE
-netFontOverride = FALSE
-netFontAutoAdjust = TRUE
-commentFontName = "Default"
-commentFontColor = ID_BLUE3
-commentFontAdjustedSize = 10
-commentFontBold = FALSE
-commentFontItalic = FALSE
-commentFontOverride = FALSE
-commentFontAutoAdjust = TRUE
-SubScopeFontName = "Default"
-SubScopeFontColor = ID_BLUE3
-SubScopeFontAdjustedSize = 8
-SubScopeFontBold = FALSE
-SubScopeFontItalic = FALSE
-SubScopeFontOverride = FALSE
-SubScopeFontAutoAdjust = TRUE
-clockTreeBrowser-MarkerColor = ID_YELLOW5
-clockTreeBrowser-SelectedColor = ID_BLUE5
-clockTreeBrowser-ViolationColor = ID_RED5
 schColorTheme = default
 [schematics_print]
 Signature = FALSE
@@ -1714,7 +1814,7 @@ AddImportArgument = FALSE
 LineBreakWithScope = TRUE
 StopAfterCompileOption = -s
 [wave.0]
-viewPort = 50 214 960 332 100 65
+viewPort = 0 11 2560 1229 225 65
 [wave.1]
 viewPort = 127 219 960 332 100 65
 [wave.2]

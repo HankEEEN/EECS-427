@@ -1,3 +1,0 @@
-Command Line: /usr/caen/verdi-2025.06-1/platform/LINUXAMD64/bin/Novas -i -simflow -simBin ./simv -ultra -simDelim -no_save
-uname(Linux caen-vnc-mi07.engin.umich.edu 5.14.0-570.51.1.el9_6.x86_64 #1 SMP PREEMPT_DYNAMIC Sat Sep 27 01:10:11 EDT 2025 x86_64)
-KdbImportParallelMixAllLib time 0.029426 0.000260 0.004733 delta 12857344 12857344 total 1059606528 1059606528
