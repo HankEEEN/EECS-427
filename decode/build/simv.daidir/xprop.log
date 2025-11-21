@@ -1,8 +1,8 @@
-decoder.sv:100 YES
-decoder.sv:141 NO "a case statement with replicated items" (141)
-decoder.sv:199 YES
-decoder.sv:271 YES
-decoder.sv:326 YES
+decoder.sv:98 YES
+decoder.sv:142 NO "a case statement with replicated items" (142)
+decoder.sv:200 YES
+decoder.sv:272 YES
+decoder.sv:327 YES
 ==================================================
 X P R O P   S T A T I S T I C S
 instrumentable assignments:    92

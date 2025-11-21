@@ -55,10 +55,10 @@ __LMOD_REF_COUNT_MODULEPATH=/etc/scl/modulefiles:1;/etc/modulefiles:1;/usr/share
 __LMOD_REF_COUNT_LM_LICENSE_FILE=license.dat:1;/usr/caen/FLEXlm/data/license.dat.synopsys:1
 __GL_SHADER_DISK_CACHE=0
 _ModuleTable_Sz_=4
-_ModuleTable004_=bW9kL21vZHVsZWZpbGVzL0NvcmUiLAp9Cg==
-_ModuleTable003_=b2R1bGVmaWxlcyIsICIvdXNyL2NhZW4vbWlzYy9tb2R1bGVzIiwgIi91c3IvY2Flbi9taXNjL2NsYXNzL21vZHVsZXMiLCAiL3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9MaW51eCIsICIvdXNyL3NoYXJlL21vZHVsZWZpbGVzL0NvcmUiLCAiL3Vzci9zaGFyZS9sbW9kL2xtb2QvbW9kdWxlZmlsZXMvQ29yZSIsCn0sCnN5c3RlbUJhc2VNUEFUSCA9ICIvZXRjL3NjbC9tb2R1bGVmaWxlczovZXRjL21vZHVsZWZpbGVzOi91c3Ivc2hhcmUvbW9kdWxlZmlsZXM6L3Vzci9jYWVuL21pc2MvbW9kdWxlczovdXNyL2NhZW4vbWlzYy9jbGFzcy9tb2R1bGVzOi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMvTGludXg6L3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9Db3JlOi91c3Ivc2hhcmUvbG1vZC9s
-_ModuleTable002_=ViA9ICJeMDAwMDIwMjUuMDAwMDAwMDA2Lip6ZmluYWwtLjAwMDAwMDAwMS4qemZpbmFsIiwKfSwKdmVyZGkgPSB7CmZuID0gIi91c3IvY2Flbi9taXNjL21vZHVsZXMvdmVyZGkvMjAyNS4wNi0xLmx1YSIsCmZ1bGxOYW1lID0gInZlcmRpLzIwMjUuMDYtMSIsCmxvYWRPcmRlciA9IDEsCnByb3BUID0ge30sCnJlZl9jb3VudCA9IDEsCnN0YWNrRGVwdGggPSAxLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAidmVyZGkvMjAyNS4wNi0xIiwKd1YgPSAiXjAwMDAyMDI1LjAwMDAwMDAwNi4qemZpbmFsLS4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCn0sCm1wYXRoQSA9IHsKIi9ldGMvc2NsL21vZHVsZWZpbGVzIiwgIi9ldGMvbW9kdWxlZmlsZXMiLCAiL3Vzci9zaGFyZS9t
-_ModuleTable001_=X01vZHVsZVRhYmxlXyA9IHsKTVR2ZXJzaW9uID0gMywKY19yZWJ1aWxkVGltZSA9IDcyMDAuMCwKY19zaG9ydFRpbWUgPSAwLjAxMDczNTAzNDk0MjYyNywKZGVwdGhUID0ge30sCmZhbWlseSA9IHt9LAptVCA9IHsKdmNzID0gewpkZXBUID0gewpkZXBBID0gewp7CnNuID0gInZlcmRpIiwKdmVyc2lvbiA9IHsKa2luZCA9ICJmaXhlZCIsCnZhbHVlID0gIjIwMjUuMDYtMSIsCn0sCn0sCn0sCn0sCmZuID0gIi91c3IvY2Flbi9taXNjL21vZHVsZXMvdmNzLzIwMjUuMDYtMS5sdWEiLApmdWxsTmFtZSA9ICJ2Y3MvMjAyNS4wNi0xIiwKbG9hZE9yZGVyID0gMiwKcHJvcFQgPSB7fSwKc3RhY2tEZXB0aCA9IDAsCnN0YXR1cyA9ICJhY3RpdmUiLAp1c2VyTmFtZSA9ICJ2Y3MiLAp3
+_ModuleTable004_=L2xtb2QvbW9kdWxlZmlsZXMvQ29yZSIsCn0K
+_ModuleTable003_=bW9kdWxlZmlsZXMiLCAiL3Vzci9jYWVuL21pc2MvbW9kdWxlcyIsICIvdXNyL2NhZW4vbWlzYy9jbGFzcy9tb2R1bGVzIiwgIi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMvTGludXgiCiwgIi91c3Ivc2hhcmUvbW9kdWxlZmlsZXMvQ29yZSIsICIvdXNyL3NoYXJlL2xtb2QvbG1vZC9tb2R1bGVmaWxlcy9Db3JlIiwKfSwKc3lzdGVtQmFzZU1QQVRIID0gIi9ldGMvc2NsL21vZHVsZWZpbGVzOi9ldGMvbW9kdWxlZmlsZXM6L3Vzci9zaGFyZS9tb2R1bGVmaWxlczovdXNyL2NhZW4vbWlzYy9tb2R1bGVzOi91c3IvY2Flbi9taXNjL2NsYXNzL21vZHVsZXM6L3Vzci9zaGFyZS9tb2R1bGVmaWxlcy9MaW51eDovdXNyL3NoYXJlL21vZHVsZWZpbGVzL0NvcmU6L3Vzci9zaGFyZS9sbW9k
+_ModuleTable002_=d1YgPSAiXjAwMDAyMDI1LjAwMDAwMDAwNi4qemZpbmFsLS4wMDAwMDAwMDEuKnpmaW5hbCIsCn0sCnZlcmRpID0gewpmbiA9ICIvdXNyL2NhZW4vbWlzYy9tb2R1bGVzL3ZlcmRpLzIwMjUuMDYtMS5sdWEiLApmdWxsTmFtZSA9ICJ2ZXJkaS8yMDI1LjA2LTEiLApsb2FkT3JkZXIgPSAxLApwcm9wVCA9IHt9LApyZWZfY291bnQgPSAxLApzdGFja0RlcHRoID0gMSwKc3RhdHVzID0gImFjdGl2ZSIsCnVzZXJOYW1lID0gInZlcmRpLzIwMjUuMDYtMSIsCndWID0gIl4wMDAwMjAyNS4wMDAwMDAwMDYuKnpmaW5hbC0uMDAwMDAwMDAxLip6ZmluYWwiLAp9LAp9LAptcGF0aEEgPSB7CiIvZXRjL3NjbC9tb2R1bGVmaWxlcyIsICIvZXRjL21vZHVsZWZpbGVzIiwgIi91c3Ivc2hhcmUv
+_ModuleTable001_=X01vZHVsZVRhYmxlXyA9IHsKTVR2ZXJzaW9uID0gMywKY19yZWJ1aWxkVGltZSA9IDcyMDAuMCwKY19zaG9ydFRpbWUgPSAwLjAwODA2MTg4NTgzMzc0MDIsCmRlcHRoVCA9IHt9LApmYW1pbHkgPSB7fSwKbVQgPSB7CnZjcyA9IHsKZGVwVCA9IHsKZGVwQSA9IHsKewpzbiA9ICJ2ZXJkaSIsCnZlcnNpb24gPSB7CmtpbmQgPSAiZml4ZWQiLAp2YWx1ZSA9ICIyMDI1LjA2LTEiLAp9LAp9LAp9LAp9LApmbiA9ICIvdXNyL2NhZW4vbWlzYy9tb2R1bGVzL3Zjcy8yMDI1LjA2LTEubHVhIiwKZnVsbE5hbWUgPSAidmNzLzIwMjUuMDYtMSIsCmxvYWRPcmRlciA9IDIsCnByb3BUID0ge30sCnN0YWNrRGVwdGggPSAwLApzdGF0dXMgPSAiYWN0aXZlIiwKdXNlck5hbWUgPSAidmNzIiwK
 _LMFILES_=/usr/caen/misc/modules/verdi/2025.06-1.lua:/usr/caen/misc/modules/vcs/2025.06-1.lua
 XMODIFIERS=@im=ibus
 XDG_SESSION_TYPE=x11
@@ -68,8 +68,8 @@ XDG_RUNTIME_DIR=/run/user/114323793
 XDG_MENU_PREFIX=gnome-
 XDG_DATA_DIRS=/home/danjchen/.local/share/flatpak/exports/share:/var/lib/flatpak/exports/share:/usr/share:/usr/local/share:/usr/caen/misc/menus
 XDG_CURRENT_DESKTOP=GNOME
-XAUTHORITY=/run/gdm/auth-for-danjchen-UUY4F3/database
-VSCODE_GIT_IPC_HANDLE=/run/user/114323793/vscode-git-70774c6fc2.sock
+XAUTHORITY=/run/gdm/auth-for-danjchen-SNCEG3/database
+VSCODE_GIT_IPC_HANDLE=/run/user/114323793/vscode-git-6bce3cbdb8.sock
 VSCODE_GIT_ASKPASS_NODE=/opt/caen/um/vscode-1.92.2/code/code
 VSCODE_GIT_ASKPASS_MAIN=/opt/caen/um/vscode-1.92.2/code/resources/app/extensions/git/dist/askpass-main.js
 VSCODE_GIT_ASKPASS_EXTRA_ARGS=
@@ -98,7 +98,7 @@ SNPS_VCS_VHDL_WRAPPER_KDB=1
 SNPS_VCS_PYTHON3=/usr/caen/vcs-2025.06-1/linux64/bin/Python3/bin/python3
 SNPS_VCS_CLANG_PATH=/usr/caen/vcs-2025.06-1/linux64/clang
 SNPS_INTERNAL_VCS_LINUX_OS=linux
-SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/1481017,unix/unix:/tmp/.ICE-unix/1481017
+SESSION_MANAGER=local/unix:@/tmp/.ICE-unix/2283899,unix/unix:/tmp/.ICE-unix/2283899
 SCRNAME=vcs
 SCRIPT_NAME=vcs
 QT_IM_MODULE=ibus
@@ -109,8 +109,8 @@ MODULESHOME=/usr/share/lmod/lmod
 MODULEPATH_ROOT=/usr/share/modulefiles
 MODULEPATH=/etc/scl/modulefiles:/etc/modulefiles:/usr/share/modulefiles:/usr/caen/misc/modules:/usr/caen/misc/class/modules:/usr/share/modulefiles/Linux:/usr/share/modulefiles/Core:/usr/share/lmod/lmod/modulefiles/Core
 MFLAGS=
-MAKE_TERMOUT=/dev/pts/3
-MAKE_TERMERR=/dev/pts/3
+MAKE_TERMOUT=/dev/pts/7
+MAKE_TERMERR=/dev/pts/7
 MAKELEVEL=1
 MAKEFLAGS=
 LOADEDMODULES=verdi/2025.06-1:vcs/2025.06-1
@@ -129,7 +129,7 @@ HISTCONTROL=ignoredups
 GJS_DEBUG_TOPICS=JS ERROR;JS LOG
 GJS_DEBUG_OUTPUT=stderr
 GIT_ASKPASS=/opt/caen/um/vscode-1.92.2/code/resources/app/extensions/git/dist/askpass.sh
-GIO_LAUNCHED_DESKTOP_FILE_PID=1483240
+GIO_LAUNCHED_DESKTOP_FILE_PID=2284768
 GIO_LAUNCHED_DESKTOP_FILE=/usr/caen/misc/menus/applications/DEVELOPMENT-VisualStudioCode1.92.2.desktop
 GDM_LANG=en_US.UTF-8
 GDMSESSION=gnome
@@ -137,7 +137,7 @@ GDK_BACKEND=x11
 FPATH=/usr/share/lmod/lmod/init/ksh_funcs
 DESKTOP_SESSION=gnome
 DEBUGINFOD_IMA_CERT_PATH=/etc/keys/ima:
-DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-FsiOLOvvbX,guid=3c0b8fd1b21e05439e0c477c691e316e
+DBUS_SESSION_BUS_ADDRESS=unix:abstract=/tmp/dbus-3D0TD4dJJz,guid=3cc5f1c57ef1597431b5246c6920e3fa
 COLORTERM=truecolor
 CLOCK_PERIOD=1.0
 CHROME_DESKTOP=code-url-handler.desktop
@@ -150,8 +150,8 @@ BASH_ENV=/usr/share/lmod/lmod/init/bash
 0
 5
 1752732158 /usr/caen/vcs-2025.06-1/linux64/packages/snps_msv_nettype_pkg/AN.DB
-1763585879 decoder.sv
-1763586508 decoder_tb.sv
+1763763606 decoder.sv
+1763763601 decoder_tb.sv
 1752984263 /usr/caen/verdi-2025.06-1/share/PLI/VCS/LINUX64/verdi.tab
 1752721624 /usr/caen/vcs-2025.06-1/linux64/lib/vcsdp_lite.tab
 4
@@ -159,5 +159,5 @@ BASH_ENV=/usr/share/lmod/lmod/init/bash
 1752722876 /usr/caen/vcs-2025.06-1/linux64/lib/liberrorinf.so
 1752722871 /usr/caen/vcs-2025.06-1/linux64/lib/libsnpsmalloc.so
 1752722863 /usr/caen/vcs-2025.06-1/linux64/lib/libvfs.so
-1763586535 build/simv.daidir
+1763763618 build/simv.daidir
 -1 partitionlib

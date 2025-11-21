@@ -3,17 +3,24 @@
 // Make some or all of the flip-flops scannable (scan IR and PSR) - If you dont have an external program memory interface
 
 module decoder(
+    
     input logic [15:0] inst_in,
     input logic clk, 
     input logic rst, 
 
+    // ALU flags
     input logic Z_in, 
     input logic N_in, 
-    input logic F_in,  
+    input logic F_in,
+
+    // Scan Chain 
+    input logic scan_en, 
+    input logic scan_in, 
+    output logic scan_out, 
 
     // for RF 
-    output logic [3:0] r_dest, 
-    output logic [3:0] r_src,
+    output logic [15:0] r_dest, 
+    output logic [15:0] r_src, 
     output logic rf_we,
 
     // for alu
@@ -37,13 +44,11 @@ module decoder(
     output logic shift, 
     output logic lsh, 
     output logic lshi 
- 
-    // output logic [15:0] inst 
-    // output logic [7:0] imm8
+
 ); 
 
-    logic       Z, N, F; 
-    logic [3:0] opcode, op_ext, cond; 
+    logic        Z, N, F; 
+    logic [3:0]  opcode, op_ext, cond, r_dest_shift, r_src_shift; 
     logic [15:0] inst; 
     
 
@@ -103,22 +108,34 @@ module decoder(
             F    <= 0; 
             N    <= 0; 
             inst <= '0;  
-            // imm8 <= '0;    
+        end else if(scan_en) begin
+            Z    <= 0;
+            F    <= 0; 
+            N    <= 0; 
+            inst <= {r_pc[14:0], scan_in}; 
         end else begin 
             Z    <= Z_in; 
             F    <= F_in; 
             N    <= N_in;
             inst <= inst_in[15:0]; 
-            // imm8 <= inst_in[7:0];       
         end 
     end 
 
+    always_ff @(posedge clk) begin 
+        if (rst) begin 
+            scan_out <= 1'b0; 
+        end else begin 
+            scan_out <= inst[15:0]; 
+        end 
+    end 
+
+
     always_comb begin  
         opcode = inst[15:12]; 
-        r_dest = inst[11:8]; 
+        r_dest_shift = inst[11:8]; 
+        r_src_shift  = inst[3:0]; 
         cond   = inst[11:8]; 
         op_ext = inst[7:4]; 
-        r_src  = inst[3:0]; 
         imm    = inst[7:0]; 
 
         sub = 1'b0;
@@ -136,6 +153,9 @@ module decoder(
         lshi = 1'b0;
         bcond = 1'b0; 
         jcond = 1'b0; 
+
+        r_dest = 1'b1 << r_dest_shift; 
+        r_src = 1'b1 << r_src_shift; 
 
 
         case(opcode)
@@ -302,7 +322,7 @@ module decoder(
                             end 
 
                             FS: begin 
-                                jcond = (F==1) ? 1 : 0; 
+                                bcond = (F==1) ? 1 : 0; 
                             end 
 
                             FC: begin 

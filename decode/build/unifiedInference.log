@@ -1,4 +1,4 @@
-decoder.sv:100 YES:SyncFF
+decoder.sv:98 YES:SyncFF
 ==================================================
 Unified Inference Statistics
 Number of always_ff:                   1

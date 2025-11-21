@@ -9,8 +9,8 @@ module decoder_tb;
     logic [15:0] inst_in;
     logic Z_in, N_in, F_in;
 
-    logic [3:0] r_dest;
-    logic [3:0] r_src;
+    logic [15:0] r_dest;
+    logic [15:0] r_src;
     logic rf_we;
 
     logic [3:0] alu_op;
@@ -65,11 +65,11 @@ module decoder_tb;
     task automatic print_outputs(string name);
         $display("------------------------------------------------");
         $display("Time=%0t  INST=%h  <-- %s", $time, inst_in, name);
-        $display("  alu=%0b alu_op=%h sub=%0b alu_imm=%0b mov=%0b lui=%0b",
+        $display("  alu=%0b alu_op=%b sub=%0b alu_imm=%0b mov=%0b lui=%0b",
                  alu, alu_op, sub, alu_imm, mov, lui);
         $display("  mem=%0b pc=%0b bcond=%0b jcond=%0b",
                  mem, pc, bcond, jcond);
-        $display("  rf_we=%0b r_dest=%0h r_src=%0h imm=%0h",
+        $display("  rf_we=%0b r_dest=%0b r_src=%0b imm=%0h",
                  rf_we, r_dest, r_src, imm);
         $display("  shift=%0b lsh=%0b lshi=%0b", shift, lsh, lshi);
         $display("  Flags in: Z=%0b N=%0b F=%0b", Z_in, N_in, F_in);
@@ -84,6 +84,7 @@ module decoder_tb;
     endtask
 
     initial begin
+        $dumpfile("decoder.vcd"); 
         // Init
         clk   = 0;
         rst   = 1;
@@ -128,7 +129,7 @@ module decoder_tb;
         // AND  R2, R1 : 0000 Rdest 0001 Rsrc => 0000 0001 0001 0010 = 0x0112
         apply_instruction(16'h0112, "AND  R2, R1");
 
-        // ANDI Imm, R1 : 0001 Rdest ImmHi ImmLo => 0001 0001 0000 1010 = 0x110A
+        // ANDI Imm, R1 : 0001 Rdest ImmHi ImmLo > 0001 0001 0000 1010 = 0x110A
         apply_instruction(16'h110A, "ANDI 0x0A, R1");
 
         // OR   R2, R1 : 0000 Rdest 0010 Rsrc => 0000 0001 0010 0010 = 0x0122
