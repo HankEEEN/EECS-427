@@ -70,7 +70,7 @@ module decoder(
 
     /* everything // is unused */
 
-    typedef enum logic [3:0] { 
+    typedef enum logic unsigned [3:0] { 
         AND = 4'h1, 
         OR = 4'h2,
         XOR = 4'h3, 
@@ -82,14 +82,14 @@ module decoder(
         //  MUL = 4'he 
     } op_ext_alu; 
 
-    typedef enum logic [3:0] {
+    typedef enum logic unsigned [3:0] {
         LOAD = 4'h0,
         STOR = 4'h4, 
         JAL = 4'h8, 
         JCOND = 4'hc  
     } op_ext_mem; 
 
-    typedef enum logic [3:0] {
+    typedef enum logic unsigned[3:0] {
         EQ = 4'h0,
         NE = 4'h1, 
         GT = 4'h6,  
@@ -125,7 +125,7 @@ module decoder(
         if (rst) begin 
             scan_out <= 1'b0; 
         end else begin 
-            scan_out <= inst[15:0]; 
+            scan_out <= inst[15]; 
         end 
     end 
 
