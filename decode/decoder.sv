@@ -112,7 +112,7 @@ module decoder(
             Z    <= 0;
             F    <= 0; 
             N    <= 0; 
-            inst <= {r_pc[14:0], scan_in}; 
+            inst <= {inst[14:0], scan_in}; 
         end else begin 
             Z    <= Z_in; 
             F    <= F_in; 
