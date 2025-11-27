@@ -10,6 +10,7 @@
 // 5. Fix Jcond FS typo (bcond_o --> jcond_o)
 // 6. With synchronous IMEM and DMEM, nop logic is needed
 // 7. CMP and CMPI affect only different PSR flags and do not write back any result, rf_we should be 0
+// 8. DMEM's WEB should be active-LOW instead of active-HIGH
 
 module decoder(
     
@@ -161,7 +162,7 @@ module decoder(
         rf_we = 1'b0;  
         alu_op_o = '0; 
 
-        dmem_we = 1'b0; 
+        dmem_we = 1'b1; 
 
         alu_imm_o = 1'b0;
         mov_o = 1'b0;
@@ -327,7 +328,7 @@ module decoder(
                     4'b0100: begin // STORE
                         mem_o = 1'b1;  
                         rf_we = 1'b0; 
-                        dmem_we = 1'b1; 
+                        dmem_we = 1'b0; 
                     end 
 
                     JAL: begin 
