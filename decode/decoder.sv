@@ -9,8 +9,11 @@
 // 4. Fix GE: (N==0 || Z_B==1) (Should (N==1 || Z_B==0)) for bcond and jcond
 // 5. Fix Jcond FS typo (bcond_o --> jcond_o)
 // 6. With synchronous IMEM and DMEM, nop logic is needed
-// 7. CMP and CMPI affect only different PSR flags and do not write back any result, rf_we should be 0
+// 7. CMP and CMPI affect only different PSR flags and do not write back any result, rf_we_o should be 0
 // 8. DMEM's WEB should be active-LOW instead of active-HIGH
+// 9. rf_we_o is control signal that doesn't have to be stored - should be combinational logic
+// 10. Fix the stall logic
+// 11. Add the flush signal to handle the taken branch
 
 module decoder(
     
@@ -32,6 +35,7 @@ module decoder(
     output logic [15:0] r_dest_o, 
     output logic [15:0] r_src_o, 
     output logic rf_we_o,
+    output logic [15:0] slave_we_o,
 
     // for alu
     output logic [3:0] alu_op_o, 
@@ -62,10 +66,12 @@ module decoder(
 
     localparam logic [15:0] NOP = 16'h0020;
 
-    logic        Z_B, N, F, rf_we; 
+    logic        Z_B, N, F; 
     logic [3:0]  r_dest_shift, r_src_shift; 
     logic [15:0] inst;
-    logic        flush;
+
+    // For handling branch taken
+    logic        branch_flush;
 
     typedef enum logic unsigned [3:0] {
         ALU = 4'h0, // look at OP Code Ext
@@ -121,22 +127,18 @@ module decoder(
             F    <= 0; 
             N    <= 0; 
             inst <= '0;  
-            rf_we_o <= 0; 
         end else if(scan_en_i) begin
             Z_B    <= 1;
             F    <= 0; 
-            N    <= 0;
-            rf_we_o <= 0;  
+            N    <= 0;  
             inst <= {inst[14:0], scan_i};
-        end else if (flush) begin
+        end else if (branch_flush) begin
             inst <= NOP;
-            rf_we_o <= 0; 
         end else begin 
             Z_B    <= Z_i; 
             F    <= F_i; 
             N    <= N_i;
             inst <= inst_i[15:0];
-            rf_we_o <= rf_we;  
         end 
     end 
 
@@ -149,6 +151,19 @@ module decoder(
     end 
 
 
+
+    logic [15:0] r_dest;
+    logic [15:0] r_src;
+    
+    always_ff @(negedge clk) begin
+        if (!rstn) begin
+            slave_we_o <= 'd0;
+        end else begin
+            slave_we_o <= r_dest;
+        end
+    end
+
+
     always_comb begin  
         opcode = inst[15:12]; 
         r_dest_shift = inst[11:8]; 
@@ -159,11 +174,10 @@ module decoder(
         imm_o    = inst[7:0]; 
 
         sub_o = 1'b0;
-        rf_we = 1'b0;  
         alu_op_o = '0; 
 
         dmem_we = 1'b1; 
-
+        rf_we_o = 1'b0;
         alu_imm_o = 1'b0;
         mov_o = 1'b0;
         lui_o = 1'b0;
@@ -176,8 +190,13 @@ module decoder(
         bcond_o = 1'b0; 
         jcond_o = 1'b0; 
 
-        r_dest_o = 1'b1 << r_dest_shift; 
-        r_src_o = 1'b1 << r_src_shift; 
+        branch_flush = 1'b0;
+
+        r_dest = 1'b1 << r_dest_shift;
+        r_src = 1'b1 << r_src_shift;
+
+        r_dest_o = r_dest;
+        r_src_o = r_src; 
 
 
         case(opcode)
@@ -187,7 +206,7 @@ module decoder(
                 alu_op_o = 4'b0001; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
                 lui_o = 1'b1;                
             end 
 
@@ -195,7 +214,7 @@ module decoder(
                 alu_op_o = 4'b0010; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
                 lui_o = 1'b1;                
             end 
 
@@ -203,7 +222,7 @@ module decoder(
                 alu_op_o = 4'b0100; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
                 lui_o = 1'b1;                
             end 
 
@@ -211,7 +230,7 @@ module decoder(
                 alu_op_o = 4'b1000; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
                 lui_o = 1'b1;                
             end 
 
@@ -220,7 +239,7 @@ module decoder(
                 sub_o = 1'b1; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
                 lui_o = 1'b1;                
             end 
 
@@ -229,14 +248,14 @@ module decoder(
                 sub_o = 1'b1; 
                 alu_imm_o = 1'b1; 
                 alu_o = 1'b1;
-                rf_we = 1'b0; 
+                rf_we_o = 1'b0; 
                 lui_o = 1'b1;                
             end
 
             // ALU INSTRUCITONS 
             ALU: begin
                 alu_o = 1'b1; 
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
 
                 case(op_ext)
                     ADD: begin 
@@ -263,19 +282,18 @@ module decoder(
                     CMP: begin 
                         alu_op_o = 4'b0001; 
                         sub_o = 1'b1; 
-                        rf_we = 1'b0; 
+                        rf_we_o = 1'b0; 
                     end
                     
                     MOV: begin 
                         mov_o = 1'b1; 
                         alu_op_o = 4'b0001; 
                         alu_o = 1'b1; 
-                        rf_we = 1'b1; 
+                        rf_we_o = 1'b1; 
                     end 
 
                     default: begin 
-                        alu_o = 1'b0; 
-                        rf_we = 1'b0;
+
                     end 
                 endcase
             end 
@@ -283,7 +301,7 @@ module decoder(
             // SHIFT INSTRUCTIONS
             SHIFT: begin
                 shift_o = 1'b1;
-                rf_we = 1'b1;
+                rf_we_o = 1'b1;
 
                 casez(op_ext)
                     4'b0100: begin  // LSH
@@ -295,8 +313,7 @@ module decoder(
                     end
 
                     default: begin
-                        shift_o = 1'b0;
-                        rf_we = 1'b0;
+
                     end
 
                 endcase
@@ -309,30 +326,30 @@ module decoder(
                 alu_imm_o = 1'b1; 
                 alu_op_o = 4'b0001;
                 alu_o = 1'b1;  
-                rf_we = 1'b1;       
+                rf_we_o = 1'b1;       
             end 
 
             LUI: begin 
                 shift_o = 1'b1;
                 lui_o = 1'b1; 
-                rf_we = 1'b1; 
+                rf_we_o = 1'b1; 
             end 
 
             MEM: begin 
                 case(op_ext) 
                     LOAD: begin 
                         mem_o = 1'b1; 
-                        rf_we = 1'b1; 
+                        rf_we_o = 1'b1;
                     end 
 
                     4'b0100: begin // STORE
                         mem_o = 1'b1;  
-                        rf_we = 1'b0; 
+                        rf_we_o = 1'b0; 
                         dmem_we = 1'b0; 
                     end 
 
                     JAL: begin 
-                        rf_we = 1'b1; 
+                        rf_we_o = 1'b1; 
                         pc_o = 1'b1; 
                         jcond_o = 1'b1; 
                     end  
@@ -426,7 +443,7 @@ module decoder(
 
         endcase 
 
-        flush = bcond_o || jcond_o;
+        branch_flush = bcond_o | jcond_o;
 
     end 
 

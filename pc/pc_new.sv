@@ -16,15 +16,14 @@ module pc #(
 
     // Branch Targets Inputs
     input   logic   [OFFSET_WIDTH-1:0]  i_disp,
-    input   logic   [ADDR_WIDTH-1:0]    i_rf_addr_n,
+    input   logic   [ADDR_WIDTH-1:0]    i_rf_addr,
 
     // Branch Decision Inputs
     input   logic                       i_bcond,
     input   logic                       i_jump,
 
     // Target Destination Addr given to IMEM and RF
-    output  logic   [ADDR_WIDTH-1:0]    o_pc2imem,
-    output  logic   [ADDR_WIDTH-1:0]    o_pc2rf
+    output  logic   [ADDR_WIDTH-1:0]    o_pc
 );
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -40,19 +39,18 @@ logic                       r_scan_out;
 logic           [ADDR_WIDTH-1:0]    w_rf_addr;
 logic           [ADDR_WIDTH-1:0]    w_pc_plus1;
 logic           [ADDR_WIDTH-1:0]    w_br_addend;
-logic           [ADDR_WIDTH-1:0]    w_pc_addout;
 logic           [ADDR_WIDTH-1:0]    w_pc_next;
 
-assign w_rf_addr = ~i_rf_addr_n;
 assign w_pc_plus1 = r_pc + 1'b1;
 assign w_br_addend = i_bcond ? {{(ADDR_WIDTH-OFFSET_WIDTH){i_disp[OFFSET_WIDTH-1]}}, i_disp} : 'd0;
-assign w_pc_addout = w_br_addend + w_pc_plus1;
 
 always_comb begin
     if (i_jump)
-        w_pc_next = w_rf_addr;
-    else
-        w_pc_next = w_pc_addout;
+        w_pc_next = i_rf_addr;
+    else if (i_bcond)
+        w_pc_next = w_br_addend + r_pc;
+    else 
+        w_pc_next = w_pc_plus1;
 end
 
 
@@ -80,8 +78,7 @@ always_ff @(posedge i_sys_clk) begin
 end
 
 
-assign o_pc2imem = r_pc;
-assign o_pc2rf = w_pc_plus1;
+assign o_pc = r_pc;
 assign o_scan_out = r_scan_out;
 
 
